@@ -4,6 +4,7 @@ import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { loginAction } from "@/actions/auth";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,18 +38,12 @@ function LoginForm() {
 
     setLoading(true);
     try {
-      const res = await signIn("credentials", {
-        email: email.trim().toLowerCase(),
-        password,
-        redirect: false,
-      });
-
-      if (res?.error) {
-        toast.error(res.error === "CredentialsSignin" ? "Invalid email or password" : res.error);
+      const result = await loginAction(email.trim().toLowerCase(), password);
+      if (result?.error) {
+        toast.error(result.error);
         setLoading(false);
         return;
       }
-
       toast.success("Signed in successfully");
       router.push(callbackUrl);
       router.refresh();

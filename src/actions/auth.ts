@@ -1,10 +1,30 @@
 "use server";
 
-import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
 import { authApi } from "@/lib/api-client";
-import { prisma } from "@/lib/prisma";
+
+export async function loginAction(email: string, password: string) {
+  if (!email?.trim() || !password) {
+    return { error: "Email and password are required" };
+  }
+  const emailClean = email.trim().toLowerCase();
+  try {
+    await authApi.login({ email: emailClean, password });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : "Login failed";
+    return { error: msg };
+  }
+  const result = await signIn("credentials", {
+    email: emailClean,
+    password,
+    redirect: false,
+  });
+  if (result?.error) {
+    return { error: result.error === "CredentialsSignin" ? "Invalid email or password" : result.error };
+  }
+  redirect("/dashboard");
+}
 
 export async function registerAction(formData: FormData) {
   const name = formData.get("name") as string;
@@ -20,42 +40,19 @@ export async function registerAction(formData: FormData) {
     return { error: "Password must be at least 8 characters" };
   }
 
-  const existing = await prisma.user.findUnique({ where: { email: email.trim().toLowerCase() } });
-  if (existing) {
-    return { error: "An account with this email already exists" };
-  }
+  const domainClean = domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+  const emailClean = email.trim().toLowerCase();
 
   try {
-    const res = await authApi.register({
+    await authApi.register({
       name: name.trim(),
-      email: email.trim().toLowerCase(),
-      domain: domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""),
-    });
-
-    const data = res as { seoApiKey?: string; seoOrgId?: string; orgId?: string; apiKey?: string };
-    const seoApiKey = data.seoApiKey ?? data.apiKey;
-    const seoOrgId = data.seoOrgId ?? data.orgId;
-
-    if (!seoApiKey) {
-      return { error: "API registration failed. Please try again." };
-    }
-
-    const hashedPassword = await hash(password, 12);
-
-    await prisma.user.create({
-      data: {
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        password: hashedPassword,
-        seoApiKey,
-        seoOrgId: seoOrgId ?? null,
-        seoPlan: (data as { plan?: string }).plan ?? "FREE",
-        seoDomain: domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""),
-      },
+      email: emailClean,
+      password,
+      domain: domainClean,
     });
 
     const result = await signIn("credentials", {
-      email: email.trim().toLowerCase(),
+      email: emailClean,
       password,
       redirect: false,
     });

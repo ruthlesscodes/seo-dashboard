@@ -1,16 +1,14 @@
-// NextAuth v5 Configuration — see CURSOR.md Section 4.4
-// Credentials + Google OAuth, JWT strategy, session includes seoApiKey, seoOrgId, seoPlan, seoDomain
+// NextAuth v5 Configuration — login via SEO Agent API (API owns the database)
+// Credentials provider calls API /api/auth/login; JWT strategy; session includes seoApiKey, seoOrgId, seoPlan, seoDomain
 
 import NextAuth from "next-auth";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
+import { authApi } from "@/lib/api-client";
 
 export const authConfig: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
       name: "credentials",
@@ -20,23 +18,28 @@ export const authConfig: NextAuthConfig = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
-        });
-        if (!user?.password) return null;
-        const { compare } = await import("bcryptjs");
-        const valid = await compare(credentials.password as string, user.password);
-        if (!valid) return null;
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name ?? undefined,
-          image: user.image ?? undefined,
-          seoApiKey: user.seoApiKey ?? undefined,
-          seoOrgId: user.seoOrgId ?? undefined,
-          seoPlan: user.seoPlan ?? "FREE",
-          seoDomain: user.seoDomain ?? undefined,
-        };
+        const email = (credentials.email as string).trim().toLowerCase();
+        try {
+          const res = await authApi.login({ email, password: credentials.password as string });
+          const raw = res as Record<string, unknown>;
+          const data = (raw.data as Record<string, unknown>) ?? raw;
+          const apiKey = (data.apiKey ?? data.api_key ?? data.seoApiKey ?? raw.apiKey ?? raw.api_key ?? raw.seoApiKey) as string | undefined;
+          const orgId = (data.orgId ?? data.org_id ?? data.seoOrgId ?? raw.orgId ?? raw.org_id ?? raw.seoOrgId) as string | undefined;
+          const user = (data.user ?? raw.user) as { id?: string; email?: string; name?: string } | undefined;
+          if (!apiKey) return null;
+          return {
+            id: (user?.id ?? data.email ?? raw.email ?? email) as string,
+            email: (user?.email ?? data.email ?? raw.email ?? email) as string,
+            name: (user?.name ?? data.name ?? raw.name ?? undefined) as string | undefined,
+            image: undefined,
+            seoApiKey: apiKey,
+            seoOrgId: orgId,
+            seoPlan: (data.plan ?? raw.plan ?? "FREE") as string,
+            seoDomain: (data.domain ?? raw.domain ?? undefined) as string | undefined,
+          };
+        } catch {
+          return null;
+        }
       },
     }),
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
@@ -55,24 +58,6 @@ export const authConfig: NextAuthConfig = {
         token.seoOrgId = (user as { seoOrgId?: string }).seoOrgId;
         token.seoPlan = (user as { seoPlan?: string }).seoPlan ?? "FREE";
         token.seoDomain = (user as { seoDomain?: string }).seoDomain;
-        return token;
-      }
-      const sub = token.sub as string | undefined;
-      if (sub && !token.seoApiKey) {
-        try {
-          const dbUser = await prisma.user.findUnique({
-            where: { id: sub },
-            select: { seoApiKey: true, seoOrgId: true, seoPlan: true, seoDomain: true },
-          });
-          if (dbUser) {
-            token.seoApiKey = dbUser.seoApiKey ?? undefined;
-            token.seoOrgId = dbUser.seoOrgId ?? undefined;
-            token.seoPlan = dbUser.seoPlan ?? "FREE";
-            token.seoDomain = dbUser.seoDomain ?? undefined;
-          }
-        } catch {
-          // DB unavailable (e.g. preview / no DATABASE_URL); keep token as-is
-        }
       }
       return token;
     },

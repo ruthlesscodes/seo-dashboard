@@ -55,9 +55,36 @@ export async function apiRequest<T = unknown>(
 }
 
 // ---- Auth ----
+async function authRequest<T>(endpoint: string, body: Record<string, unknown>): Promise<T> {
+  const baseUrl = process.env.SEO_API_URL || process.env.NEXT_PUBLIC_SEO_API_URL || "http://localhost:4200";
+  const url = baseUrl + endpoint;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  const text = await res.text();
+  let data: unknown;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error("Invalid API response");
+  }
+  if (!res.ok) {
+    const msg = (data as { message?: string; error?: string })?.message ?? (data as { message?: string; error?: string })?.error ?? "Auth failed";
+    const err: any = new Error(msg);
+    err.status = res.status;
+    throw err;
+  }
+  return data as T;
+}
+
 export const authApi = {
-  register: (body: { name: string; domain: string; email: string }) =>
-    apiRequest("/api/auth/register", { apiKey: "", body: body as any }),
+  login: (body: { email: string; password: string }) =>
+    authRequest<{ apiKey?: string; api_key?: string; seoApiKey?: string; orgId?: string; org_id?: string; seoOrgId?: string; plan?: string; domain?: string; email?: string; name?: string; user?: { id?: string; email?: string; name?: string } }>("/api/auth/login", body),
+  register: (body: { name: string; email: string; password: string; domain: string }) =>
+    authRequest<{ apiKey?: string; api_key?: string; seoApiKey?: string; orgId?: string; org_id?: string; seoOrgId?: string; plan?: string; domain?: string }>("/api/auth/register", body),
   usage: (apiKey: string) =>
     apiRequest("/api/auth/usage", { apiKey, method: "GET" }),
 };
