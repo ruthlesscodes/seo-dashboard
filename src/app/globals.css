@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Amber Frost Industrial Design System — Bloomberg Terminal meets Mission Control */
+
+@layer base {
+  :root {
+    /* Cold steel backgrounds */
+    --background: 220 12% 4%;
+    --foreground: 220 8% 92%;
+    --card: 220 10% 6%;
+    --card-foreground: 220 8% 92%;
+    --popover: 220 10% 6%;
+    --popover-foreground: 220 8% 92%;
+    /* Warm amber accents on cold steel */
+    --primary: 38 92% 52%;
+    --primary-foreground: 220 12% 4%;
+    --secondary: 220 8% 12%;
+    --secondary-foreground: 220 8% 92%;
+    --muted: 220 8% 12%;
+    --muted-foreground: 220 6% 48%;
+    --accent: 220 8% 14%;
+    --accent-foreground: 220 8% 92%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 8% 16%;
+    --input: 220 8% 16%;
+    --ring: 38 92% 52%;
+    /* Tight 6px border radius — zero decoration */
+    --radius: 6px;
+    /* Amber alert / status */
+    --amber: 38 92% 52%;
+    --steel: 220 8% 18%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 30 Utility Classes — every pixel earns its place */
+@layer utilities {
+  .panel-steel { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
+  .readout-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .status-ok { color: hsl(142 71% 45%); }
+  .status-warn { color: hsl(38 92% 52%); }
+  .status-error { color: hsl(0 72% 55%); }
+  .glow-amber { box-shadow: 0 0 12px hsla(38, 92%, 52%, 0.25); }
+  .glow-success { box-shadow: 0 0 12px hsla(142, 71%, 45%, 0.2); }
+  .glow-error { box-shadow: 0 0 12px hsla(0, 72%, 55%, 0.2); }
+  .border-industrial { border-radius: var(--radius); }
+  .text-readout { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; }
+  .label-uppercase { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+  .data-cell { padding: 0.5rem 0.75rem; font-variant-numeric: tabular-nums; }
+  .hover-lift { transition: border-color 0.15s, box-shadow 0.15s; }
+  .hover-lift:hover { border-color: hsl(var(--primary) / 0.4); box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15); }
+  .btn-press:active { transform: scale(0.98); }
+  .indicator-dot { width: 6px; height: 6px; border-radius: 9999px; }
+  .indicator-live { animation: pulse-glow 2s infinite; }
+  .card-dense { padding: 0.75rem 1rem; }
+  .tile-grid { display: grid; gap: 0.5rem; }
+  .separator-steel { height: 1px; background: hsl(var(--border)); }
+  .badge-amber { background: hsl(var(--amber) / 0.2); color: hsl(var(--amber)); }
+  .badge-steel { background: hsl(var(--steel)); color: hsl(var(--muted-foreground)); }
+}
+
+/* Scrollbar — minimal */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Rank change — semantic colors */
+.rank-up {
+  color: hsl(142 71% 45%);
+}
+.rank-down {
+  color: hsl(0 72% 55%);
+}
+.rank-stable {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Score ring gradient — conic sweep */
+.score-ring {
+  background: conic-gradient(
+    hsl(var(--primary)) calc(var(--score) * 1%),
+    hsl(var(--border)) 0%
+  );
+}
+
+/* Diff highlighting */
+.diff-added {
+  background: hsla(142, 71%, 45%, 0.15);
+  border-left: 3px solid hsl(142 71% 45%);
+}
+.diff-removed {
+  background: hsla(0, 72%, 55%, 0.15);
+  border-left: 3px solid hsl(0 72% 55%);
+}
