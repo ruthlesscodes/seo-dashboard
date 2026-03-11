@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  ListChecks,
   Search,
   TrendingUp,
   Users,
@@ -23,7 +24,10 @@ import { CreditUsage } from "./credit-usage";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { label: "OVERVIEW", items: [{ label: "Dashboard", href: "/dashboard", icon: LayoutDashboard }] },
+  { label: "OVERVIEW", items: [
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "My Priorities", href: "/dashboard/priorities", icon: ListChecks, highlight: true },
+  ] },
   {
     label: "RESEARCH",
     items: [
@@ -103,6 +107,7 @@ export function Sidebar({
                   const href = item.href.replace(/^\/dashboard/, basePath);
                   const isActive = pathname === href || pathname.startsWith(href + "/");
                   const Icon = item.icon;
+                  const highlight = (item as { highlight?: boolean }).highlight;
                   return (
                     <li key={item.href}>
                       <Link
@@ -111,12 +116,15 @@ export function Sidebar({
                           "flex items-center gap-3 rounded-[6px] px-3 py-2 text-sm transition-colors",
                           isActive
                             ? "animate-slide-in-left border-l-2 border-primary bg-primary/10 text-foreground"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                            : highlight ? "text-primary hover:bg-primary/5" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                         )}
                         style={isActive ? { marginLeft: -2, paddingLeft: 14 } : undefined}
                       >
                         <Icon className="h-4 w-4 shrink-0" />
                         {item.label}
+                        {highlight && !isActive && (
+                          <span className="ml-auto rounded-full bg-primary/15 px-1.5 py-0.5 text-[10px] font-bold text-primary">Fix</span>
+                        )}
                       </Link>
                     </li>
                   );
