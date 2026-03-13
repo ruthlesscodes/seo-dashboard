@@ -5,6 +5,7 @@ import NextAuth from "next-auth";
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
+import { CredentialsSignin } from "next-auth";
 import { authApi } from "@/lib/api-client";
 
 export const authConfig: NextAuthConfig = {
@@ -17,7 +18,9 @@ export const authConfig: NextAuthConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) {
+          throw new CredentialsSignin("Email and password are required");
+        }
         const email = (credentials.email as string).trim().toLowerCase();
         try {
           const res = await authApi.login({ email, password: credentials.password as string });
@@ -26,7 +29,7 @@ export const authConfig: NextAuthConfig = {
           const apiKey = (data.apiKey ?? data.api_key ?? data.seoApiKey ?? raw.apiKey ?? raw.api_key ?? raw.seoApiKey) as string | undefined;
           const orgId = (data.orgId ?? data.org_id ?? data.seoOrgId ?? raw.orgId ?? raw.org_id ?? raw.seoOrgId) as string | undefined;
           const user = (data.user ?? raw.user) as { id?: string; email?: string; name?: string } | undefined;
-          if (!apiKey) return null;
+          if (!apiKey) throw new CredentialsSignin("Invalid credentials");
           return {
             id: (user?.id ?? data.email ?? raw.email ?? email) as string,
             email: (user?.email ?? data.email ?? raw.email ?? email) as string,
@@ -37,8 +40,9 @@ export const authConfig: NextAuthConfig = {
             seoPlan: (data.plan ?? raw.plan ?? "FREE") as string,
             seoDomain: (data.domain ?? raw.domain ?? undefined) as string | undefined,
           };
-        } catch {
-          return null;
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : "Invalid credentials";
+          throw new CredentialsSignin(msg);
         }
       },
     }),

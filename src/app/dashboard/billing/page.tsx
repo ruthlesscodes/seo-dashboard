@@ -24,11 +24,11 @@ const STATIC_PLANS = [
     features: ["100 credits/month", "Technical audits", "Keyword search", "Monitor 3 URLs"],
   },
   {
-    name: "STARTER", price: 29,
+    name: "STARTER", price: 43,
     features: ["1,000 credits/month", "All FREE features", "Rankings tracker", "Content generation", "Monitor 20 URLs"],
   },
   {
-    name: "GROWTH", price: 99,
+    name: "GROWTH", price: 197,
     features: ["5,000 credits/month", "All STARTER features", "Lighthouse + Core Web Vitals", "AI Agent audits", "Competitor analysis", "GEO / AEO tools", "Google Search Console", "Unlimited monitoring"],
   },
 ];

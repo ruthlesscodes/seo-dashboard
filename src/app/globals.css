@@ -2,36 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Amber Frost Industrial Design System — Bloomberg Terminal meets Mission Control */
-
 @layer base {
   :root {
-    /* Cold steel backgrounds */
-    --background: 220 12% 4%;
-    --foreground: 220 8% 92%;
-    --card: 220 10% 6%;
-    --card-foreground: 220 8% 92%;
-    --popover: 220 10% 6%;
-    --popover-foreground: 220 8% 92%;
-    /* Warm amber accents on cold steel */
-    --primary: 38 92% 52%;
-    --primary-foreground: 220 12% 4%;
-    --secondary: 220 8% 12%;
-    --secondary-foreground: 220 8% 92%;
-    --muted: 220 8% 12%;
-    --muted-foreground: 220 6% 48%;
-    --accent: 220 8% 14%;
-    --accent-foreground: 220 8% 92%;
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 8% 16%;
-    --input: 220 8% 16%;
-    --ring: 38 92% 52%;
-    /* Tight 6px border radius — zero decoration */
-    --radius: 6px;
-    /* Amber alert / status */
-    --amber: 38 92% 52%;
-    --steel: 220 8% 18%;
+    --background: 213 60% 97%;
+    --foreground: 213 60% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 60% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 60% 14%;
+    --primary: 213 73% 37%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 213 60% 95%;
+    --secondary-foreground: 213 60% 14%;
+    --muted: 213 60% 96%;
+    --muted-foreground: 213 25% 57%;
+    --accent: 213 60% 95%;
+    --accent-foreground: 213 60% 14%;
+    --destructive: 0 54% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 213 60% 90%;
+    --input: 213 60% 90%;
+    --ring: 213 73% 37%;
+    --radius: 0.75rem;
   }
 }
 
@@ -39,83 +31,51 @@
   * {
     border-color: hsl(var(--border));
   }
-
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    background-color: #F4F8FE;
+    color: #0E1E35;
+    font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* 30 Utility Classes — every pixel earns its place */
-@layer utilities {
-  .panel-steel { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
-  .readout-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-  .status-ok { color: hsl(142 71% 45%); }
-  .status-warn { color: hsl(38 92% 52%); }
-  .status-error { color: hsl(0 72% 55%); }
-  .glow-amber { box-shadow: 0 0 12px hsla(38, 92%, 52%, 0.25); }
-  .glow-success { box-shadow: 0 0 12px hsla(142, 71%, 45%, 0.2); }
-  .glow-error { box-shadow: 0 0 12px hsla(0, 72%, 55%, 0.2); }
-  .border-industrial { border-radius: var(--radius); }
-  .text-readout { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; }
-  .label-uppercase { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
-  .data-cell { padding: 0.5rem 0.75rem; font-variant-numeric: tabular-nums; }
-  .hover-lift { transition: border-color 0.15s, box-shadow 0.15s; }
-  .hover-lift:hover { border-color: hsl(var(--primary) / 0.4); box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15); }
-  .btn-press:active { transform: scale(0.98); }
-  .indicator-dot { width: 6px; height: 6px; border-radius: 9999px; }
-  .indicator-live { animation: pulse-glow 2s infinite; }
-  .card-dense { padding: 0.75rem 1rem; }
-  .tile-grid { display: grid; gap: 0.5rem; }
-  .separator-steel { height: 1px; background: hsl(var(--border)); }
-  .badge-amber { background: hsl(var(--amber) / 0.2); color: hsl(var(--amber)); }
-  .badge-steel { background: hsl(var(--steel)); color: hsl(var(--muted-foreground)); }
-}
-
-/* Scrollbar — minimal */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: #B5D4F4;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
+  background: #85B7EB;
 }
 
-/* Rank change — semantic colors */
+/* Rank changes */
 .rank-up {
-  color: hsl(142 71% 45%);
+  color: #1D9E75;
 }
 .rank-down {
-  color: hsl(0 72% 55%);
+  color: #A32D2D;
 }
+.rank-neutral,
 .rank-stable {
-  color: hsl(var(--muted-foreground));
-}
-
-/* Score ring gradient — conic sweep */
-.score-ring {
-  background: conic-gradient(
-    hsl(var(--primary)) calc(var(--score) * 1%),
-    hsl(var(--border)) 0%
-  );
+  color: #7A94B0;
 }
 
 /* Diff highlighting */
 .diff-added {
-  background: hsla(142, 71%, 45%, 0.15);
-  border-left: 3px solid hsl(142 71% 45%);
+  background: #E1F5EE;
+  border-left: 3px solid #1D9E75;
+  padding-left: 8px;
 }
 .diff-removed {
-  background: hsla(0, 72%, 55%, 0.15);
-  border-left: 3px solid hsl(0 72% 55%);
+  background: #FCEBEB;
+  border-left: 3px solid #A32D2D;
+  padding-left: 8px;
 }

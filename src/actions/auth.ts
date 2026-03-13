@@ -1,7 +1,7 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
+import { CredentialsSignin } from "next-auth";
 import { authApi } from "@/lib/api-client";
 
 export async function loginAction(email: string, password: string) {
@@ -10,20 +10,22 @@ export async function loginAction(email: string, password: string) {
   }
   const emailClean = email.trim().toLowerCase();
   try {
-    await authApi.login({ email: emailClean, password });
+    const result = await signIn("credentials", {
+      email: emailClean,
+      password,
+      redirect: false,
+    });
+    if (result?.error) {
+      return { error: result.error === "CredentialsSignin" ? "Invalid credentials" : result.error };
+    }
+    return { success: true };
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Login failed";
+    if (err instanceof CredentialsSignin && err.message) {
+      return { error: err.message };
+    }
+    const msg = err instanceof Error ? err.message : "Something went wrong";
     return { error: msg };
   }
-  const result = await signIn("credentials", {
-    email: emailClean,
-    password,
-    redirect: false,
-  });
-  if (result?.error) {
-    return { error: result.error === "CredentialsSignin" ? "Invalid email or password" : result.error };
-  }
-  redirect("/dashboard");
 }
 
 export async function registerAction(formData: FormData) {
