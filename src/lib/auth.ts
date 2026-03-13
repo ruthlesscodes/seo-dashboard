@@ -22,23 +22,50 @@ export const authConfig: NextAuthConfig = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
-        });
-        if (!user?.password) return null;
-        const { compare } = await import("bcryptjs");
-        const valid = await compare(credentials.password as string, user.password);
-        if (!valid) return null;
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name ?? undefined,
-          image: user.image ?? undefined,
-          seoApiKey: user.seoApiKey ?? undefined,
-          seoOrgId: user.seoOrgId ?? undefined,
-          seoPlan: user.seoPlan ?? "FREE",
-          seoDomain: user.seoDomain ?? undefined,
-        };
+
+        try {
+          // Authenticate via backend API
+          const res = await authApi.login({
+            email: credentials.email as string,
+            password: credentials.password as string,
+          });
+
+          if (!res?.success || !res.apiKey) return null;
+
+          // Upsert dashboard user with backend credentials
+          const email = (credentials.email as string).toLowerCase();
+          const dbUser = await prisma.user.upsert({
+            where: { email },
+            update: {
+              seoApiKey: res.apiKey,
+              seoOrgId: res.orgId ?? res.seoOrgId ?? null,
+              seoPlan: res.plan ?? "FREE",
+              seoDomain: res.domain ?? null,
+              name: res.user?.name ?? undefined,
+            },
+            create: {
+              email,
+              name: res.user?.name ?? email.split("@")[0],
+              seoApiKey: res.apiKey,
+              seoOrgId: res.orgId ?? res.seoOrgId ?? null,
+              seoPlan: res.plan ?? "FREE",
+              seoDomain: res.domain ?? null,
+            },
+          });
+
+          return {
+            id: dbUser.id,
+            email: dbUser.email,
+            name: dbUser.name ?? undefined,
+            image: dbUser.image ?? undefined,
+            seoApiKey: res.apiKey,
+            seoOrgId: res.orgId ?? res.seoOrgId ?? undefined,
+            seoPlan: res.plan ?? "FREE",
+            seoDomain: res.domain ?? undefined,
+          };
+        } catch {
+          return null;
+        }
       },
     }),
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET

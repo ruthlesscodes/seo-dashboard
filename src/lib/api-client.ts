@@ -58,6 +58,17 @@ export async function apiRequest<T = unknown>(
 export const authApi = {
   register: (body: { name: string; domain: string; email: string; password: string }) =>
     apiRequest("/api/auth/register", { apiKey: "", body: body as any }),
+  login: (body: { email: string; password: string }) =>
+    apiRequest<{
+      success: boolean;
+      apiKey: string;
+      seoApiKey: string;
+      orgId: string;
+      seoOrgId: string;
+      plan: string;
+      domain: string;
+      user: { id: string; email: string; name: string };
+    }>("/api/auth/login", { apiKey: "", body: body as any }),
   usage: (apiKey: string) =>
     apiRequest("/api/auth/usage", { apiKey, method: "GET" }),
 };

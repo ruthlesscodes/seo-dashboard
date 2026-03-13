@@ -39,3 +39,21 @@ export async function getAuditRunDetails(runId: string) {
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
   return auditApi.runDetails(session.user.seoApiKey, runId);
 }
+
+export async function runBatchAudit(body: { urls: string[] }) {
+  const session = await auth();
+  if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
+  return auditApi.batch(session.user.seoApiKey, body);
+}
+
+export async function runInternalLinksAudit(body: { domain: string }) {
+  const session = await auth();
+  if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
+  return auditApi.internalLinks(session.user.seoApiKey, body);
+}
+
+export async function takeScreenshot(body: { url: string }) {
+  const session = await auth();
+  if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
+  return auditApi.screenshot(session.user.seoApiKey, body);
+}
