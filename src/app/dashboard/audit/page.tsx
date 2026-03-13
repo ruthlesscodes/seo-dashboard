@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { ShieldCheck, Gauge, Bot, History } from "lucide-react";
-import { runTechnicalAudit, runLighthouseAudit, runAgentAudit, getAuditHistory } from "@/actions/audit";
+import { ShieldCheck, Gauge, Bot, History, Layers, Link2, Camera } from "lucide-react";
+import { runTechnicalAudit, runLighthouseAudit, runAgentAudit, getAuditHistory, runBatchAudit, runInternalLinksAudit, takeScreenshot } from "@/actions/audit";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -56,6 +56,15 @@ export default function AuditPage() {
 
   const [agentDomain, setAgentDomain] = useState("");
   const [agentResult, setAgentResult] = useState<any>(null);
+
+  const [batchUrls, setBatchUrls] = useState("");
+  const [batchResult, setBatchResult] = useState<any>(null);
+
+  const [internalLinksDomain, setInternalLinksDomain] = useState("");
+  const [internalLinksResult, setInternalLinksResult] = useState<any>(null);
+
+  const [screenshotUrl, setScreenshotUrl] = useState("");
+  const [screenshotResult, setScreenshotResult] = useState<any>(null);
 
   const [history, setHistory] = useState<any[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState(false);
@@ -119,6 +128,54 @@ export default function AuditPage() {
     }
   }
 
+  async function handleBatchAudit(e: React.FormEvent) {
+    e.preventDefault();
+    const urls = batchUrls.split("\n").map((u) => u.trim()).filter(Boolean);
+    if (!urls.length) { toast.error("Enter at least one URL"); return; }
+    setLoading("batch"); setBatchResult(null);
+    try {
+      const res = await runBatchAudit({ urls }) as any;
+      setBatchResult(res?.data ?? res);
+      toast.success(`Batch audit started for ${urls.length} URLs`);
+    } catch (err: any) {
+      toast.error(err?.message ?? "Batch audit failed");
+    } finally {
+      setLoading(null);
+    }
+  }
+
+  async function handleInternalLinks(e: React.FormEvent) {
+    e.preventDefault();
+    if (!internalLinksDomain.trim()) { toast.error("Enter a domain"); return; }
+    setLoading("internal-links"); setInternalLinksResult(null);
+    try {
+      const res = await runInternalLinksAudit({
+        domain: internalLinksDomain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""),
+      }) as any;
+      setInternalLinksResult(res?.data ?? res);
+      toast.success("Internal links audit complete");
+    } catch (err: any) {
+      toast.error(err?.message ?? "Internal links audit failed");
+    } finally {
+      setLoading(null);
+    }
+  }
+
+  async function handleScreenshot(e: React.FormEvent) {
+    e.preventDefault();
+    if (!screenshotUrl.trim()) { toast.error("Enter a URL"); return; }
+    setLoading("screenshot"); setScreenshotResult(null);
+    try {
+      const res = await takeScreenshot({ url: screenshotUrl.trim() }) as any;
+      setScreenshotResult(res?.data ?? res);
+      toast.success("Screenshot captured");
+    } catch (err: any) {
+      toast.error(err?.message ?? "Screenshot failed");
+    } finally {
+      setLoading(null);
+    }
+  }
+
   async function loadHistory() {
     if (historyLoaded) return;
     try {
@@ -149,6 +206,15 @@ export default function AuditPage() {
           </TabsTrigger>
           <TabsTrigger value="agent" className="gap-2">
             <Bot className="h-4 w-4" /> AI Agent
+          </TabsTrigger>
+          <TabsTrigger value="batch" className="gap-2">
+            <Layers className="h-4 w-4" /> Batch
+          </TabsTrigger>
+          <TabsTrigger value="internal-links" className="gap-2">
+            <Link2 className="h-4 w-4" /> Internal Links
+          </TabsTrigger>
+          <TabsTrigger value="screenshot" className="gap-2">
+            <Camera className="h-4 w-4" /> Screenshot
           </TabsTrigger>
           <TabsTrigger value="history" className="gap-2" onClick={loadHistory}>
             <History className="h-4 w-4" /> History
@@ -390,6 +456,145 @@ export default function AuditPage() {
                     <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
                       {JSON.stringify(agentResult, null, 2)}
                     </pre>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="batch">
+          <Card>
+            <CardHeader>
+              <CardTitle>Batch Audit</CardTitle>
+              <p className="text-sm text-muted-foreground">Audit multiple URLs in parallel (one per line)</p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <form onSubmit={handleBatchAudit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label>URLs (one per line)</Label>
+                  <textarea
+                    className="flex min-h-[120px] w-full rounded-[6px] border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    placeholder={"https://example.com/page-1\nhttps://example.com/page-2\nhttps://example.com/page-3"}
+                    value={batchUrls}
+                    onChange={(e) => setBatchUrls(e.target.value)}
+                    disabled={!!loading}
+                  />
+                </div>
+                <Button type="submit" disabled={!!loading}>
+                  {loading === "batch" ? "Running…" : `Audit ${batchUrls.split("\n").filter((u) => u.trim()).length || 0} URLs`}
+                </Button>
+              </form>
+              {batchResult && (
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                  <pre className="whitespace-pre-wrap text-xs">
+                    {typeof batchResult === "string" ? batchResult : JSON.stringify(batchResult, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="internal-links">
+          <Card>
+            <CardHeader>
+              <CardTitle>Internal Links Audit</CardTitle>
+              <p className="text-sm text-muted-foreground">Find orphaned pages, hub pages, and internal linking issues</p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <form onSubmit={handleInternalLinks} className="flex gap-4">
+                <div className="min-w-[280px] flex-1 space-y-2">
+                  <Label>Domain</Label>
+                  <Input placeholder="example.com" value={internalLinksDomain} onChange={(e) => setInternalLinksDomain(e.target.value)} disabled={!!loading} />
+                </div>
+                <div className="flex items-end">
+                  <Button type="submit" disabled={!!loading}>
+                    {loading === "internal-links" ? "Analyzing…" : "Audit Links"}
+                  </Button>
+                </div>
+              </form>
+              {internalLinksResult && (
+                <div className="mt-4 space-y-4">
+                  {(internalLinksResult.totalPages != null || internalLinksResult.orphaned) && (
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                      {internalLinksResult.totalPages != null && (
+                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                          <p className="text-xl font-bold">{internalLinksResult.totalPages}</p>
+                          <p className="text-xs text-muted-foreground">Total Pages</p>
+                        </div>
+                      )}
+                      {internalLinksResult.orphaned && (
+                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                          <p className="text-xl font-bold text-amber-500">{internalLinksResult.orphaned.length}</p>
+                          <p className="text-xs text-muted-foreground">Orphaned Pages</p>
+                        </div>
+                      )}
+                      {internalLinksResult.hubPages != null && (
+                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                          <p className="text-xl font-bold text-green-500">{internalLinksResult.hubPages}</p>
+                          <p className="text-xs text-muted-foreground">Hub Pages</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {internalLinksResult.orphaned?.length > 0 && (
+                    <div>
+                      <h3 className="mb-2 font-medium">Orphaned Pages</h3>
+                      <ul className="max-h-[200px] overflow-auto space-y-1 rounded-[6px] border border-border bg-muted/30 p-3">
+                        {internalLinksResult.orphaned.map((url: string, i: number) => (
+                          <li key={i} className="truncate font-mono text-xs text-muted-foreground">{url}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {internalLinksResult.analysis && (
+                    <div className="max-h-[300px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                      <pre className="whitespace-pre-wrap text-xs">
+                        {typeof internalLinksResult.analysis === "string" ? internalLinksResult.analysis : JSON.stringify(internalLinksResult.analysis, null, 2)}
+                      </pre>
+                    </div>
+                  )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="screenshot">
+          <Card>
+            <CardHeader>
+              <CardTitle>Page Screenshot</CardTitle>
+              <p className="text-sm text-muted-foreground">Capture a full-page screenshot of any URL</p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <form onSubmit={handleScreenshot} className="flex gap-4">
+                <div className="min-w-[280px] flex-1 space-y-2">
+                  <Label>URL</Label>
+                  <Input placeholder="https://example.com" value={screenshotUrl} onChange={(e) => setScreenshotUrl(e.target.value)} disabled={!!loading} />
+                </div>
+                <div className="flex items-end">
+                  <Button type="submit" disabled={!!loading}>
+                    {loading === "screenshot" ? "Capturing…" : "Take Screenshot"}
+                  </Button>
+                </div>
+              </form>
+              {screenshotResult && (
+                <div className="mt-4">
+                  {(screenshotResult.screenshot || screenshotResult.base64) ? (
+                    <div className="overflow-auto rounded-[6px] border border-border">
+                      <img
+                        src={screenshotResult.screenshot || `data:image/png;base64,${screenshotResult.base64}`}
+                        alt="Page screenshot"
+                        className="w-full"
+                      />
+                    </div>
+                  ) : (
+                    <div className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                      <pre className="whitespace-pre-wrap text-xs">
+                        {JSON.stringify(screenshotResult, null, 2)}
+                      </pre>
+                    </div>
                   )}
                 </div>
               )}
