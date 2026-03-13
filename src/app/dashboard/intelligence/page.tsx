@@ -366,7 +366,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Batch Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Run batch research across multiple topics</p>
+              <p className="text-sm text-muted-foreground">Run batch research across multiple topics. For domain-specific analysis use the <strong>Domain Analysis</strong> tab, or <strong>Gap Analysis</strong> for competitor comparisons.</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBatch} className="flex flex-wrap gap-4">
