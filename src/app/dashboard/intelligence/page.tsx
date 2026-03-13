@@ -102,11 +102,11 @@ export default function IntelligencePage() {
   async function handleBatch(e: React.FormEvent) {
     e.preventDefault();
     const keywords = batchKeywords.split(",").map((k) => k.trim()).filter(Boolean);
-    const competitorDomains = batchCompetitors.split(",").map((c) => c.trim()).filter(Boolean);
-    if (!batchDomain.trim() || !keywords.length) { toast.error("Enter domain and keywords"); return; }
+    if (!keywords.length) { toast.error("Enter at least one keyword/topic"); return; }
     setLoading("batch"); setBatchResult(null);
     try {
-      const res = await runIntelligenceBatch({ domain: batchDomain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""), keywords, competitorDomains: competitorDomains.length ? competitorDomains : undefined }) as any;
+      const prompts = keywords.map((k) => ({ topic: k }));
+      const res = await runIntelligenceBatch({ prompts }) as any;
       setBatchResult(res?.data ?? res);
       toast.success("Batch analysis complete");
     } catch (err: any) { toast.error(err?.message ?? "Batch failed"); }

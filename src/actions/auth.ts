@@ -26,15 +26,22 @@ export async function registerAction(formData: FormData) {
   }
 
   try {
+    const cleanDomain = domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, "");
+
     const res = await authApi.register({
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      domain: domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""),
+      password,
+      domain: cleanDomain,
     });
 
-    const data = res as { seoApiKey?: string; seoOrgId?: string; orgId?: string; apiKey?: string };
-    const seoApiKey = data.seoApiKey ?? data.apiKey;
-    const seoOrgId = data.seoOrgId ?? data.orgId;
+    const data = res as {
+      apiKey?: string;
+      organization?: { id?: string; plan?: string };
+    };
+    const seoApiKey = data.apiKey;
+    const seoOrgId = data.organization?.id ?? null;
+    const seoPlan = data.organization?.plan ?? "FREE";
 
     if (!seoApiKey) {
       return { error: "API registration failed. Please try again." };
@@ -48,9 +55,9 @@ export async function registerAction(formData: FormData) {
         email: email.trim().toLowerCase(),
         password: hashedPassword,
         seoApiKey,
-        seoOrgId: seoOrgId ?? null,
-        seoPlan: (data as { plan?: string }).plan ?? "FREE",
-        seoDomain: domain.trim().replace(/^https?:\/\//, "").replace(/\/$/, ""),
+        seoOrgId,
+        seoPlan,
+        seoDomain: cleanDomain,
       },
     });
 

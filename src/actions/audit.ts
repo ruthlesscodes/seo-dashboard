@@ -15,7 +15,7 @@ export async function runTechnicalAudit(body: {
 
 export async function runLighthouseAudit(body: {
   url: string;
-  strategy?: "mobile" | "desktop";
+  mobile?: boolean;
 }) {
   const session = await auth();
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");

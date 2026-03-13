@@ -15,7 +15,7 @@ export async function searchGithub(body: { query: string }) {
   return searchApi.github(session.user.seoApiKey, body);
 }
 
-export async function searchResearch(body: { query: string; depth?: string }) {
+export async function searchResearch(body: { query: string; limit?: number }) {
   const session = await auth();
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
   return searchApi.research(session.user.seoApiKey, body);

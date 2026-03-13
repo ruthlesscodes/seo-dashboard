@@ -51,7 +51,7 @@ export default function AuditPage() {
   const [technicalResult, setTechnicalResult] = useState<any>(null);
 
   const [lighthouseUrl, setLighthouseUrl] = useState("");
-  const [lighthouseStrategy, setLighthouseStrategy] = useState<"mobile" | "desktop">("mobile");
+  const [lighthouseMobile, setLighthouseMobile] = useState(true);
   const [lighthouseResult, setLighthouseResult] = useState<any>(null);
 
   const [agentDomain, setAgentDomain] = useState("");
@@ -94,7 +94,7 @@ export default function AuditPage() {
     if (!lighthouseUrl.trim()) { toast.error("Enter a URL"); return; }
     setLoading("lighthouse"); setLighthouseResult(null);
     try {
-      const res = await runLighthouseAudit({ url: lighthouseUrl.trim(), strategy: lighthouseStrategy }) as any;
+      const res = await runLighthouseAudit({ url: lighthouseUrl.trim(), mobile: lighthouseMobile }) as any;
       setLighthouseResult(res?.data ?? res);
       toast.success("Lighthouse audit complete");
     } catch (err: any) {
@@ -246,8 +246,8 @@ export default function AuditPage() {
                   <Label>Strategy</Label>
                   <select
                     className="flex h-10 w-full rounded-[6px] border border-input bg-background px-3 py-2 text-sm"
-                    value={lighthouseStrategy}
-                    onChange={(e) => setLighthouseStrategy(e.target.value as "mobile" | "desktop")}
+                    value={lighthouseMobile ? "mobile" : "desktop"}
+                    onChange={(e) => setLighthouseMobile(e.target.value === "mobile")}
                     disabled={!!loading}
                   >
                     <option value="mobile">Mobile</option>
