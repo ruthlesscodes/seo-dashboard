@@ -57,7 +57,7 @@ export default function BillingPage() {
     setUpgrading(plan);
     try {
       const res = await upgradePlan({ plan }) as any;
-      const url = res?.url ?? res?.data?.url;
+      const url = res?.data?.checkoutUrl ?? res?.checkoutUrl ?? res?.data?.url ?? res?.url;
       if (url) { window.location.href = url; return; }
       toast.success(`Upgraded to ${plan}`);
     } catch (err: any) {
