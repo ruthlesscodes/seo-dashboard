@@ -32,10 +32,10 @@ export function TopBar({
     .slice(0, 2) ?? user?.email?.[0]?.toUpperCase() ?? "?";
 
   return (
-    <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-meridian-100 bg-white px-4">
+    <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-magneta-100 bg-white px-4">
       <div className="flex items-center gap-4">
         {domain && (
-          <div className="flex items-center gap-2 rounded-full border border-meridian-100 bg-canvas px-3 py-1.5">
+          <div className="flex items-center gap-2 rounded-full border border-magneta-100 bg-canvas px-3 py-1.5">
             <Globe className="h-4 w-4 text-ink-3" />
             <span className="text-sm font-medium text-ink-2">{domain}</span>
           </div>
@@ -47,11 +47,11 @@ export function TopBar({
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="flex items-center gap-2 rounded-full outline-none ring-meridian-600 focus:ring-2"
+              className="flex items-center gap-2 rounded-full outline-none ring-magneta-600 focus:ring-2"
             >
               <Avatar className="h-8 w-8">
                 <AvatarFallback
-                  className="bg-meridian-50 text-sm font-semibold text-meridian-600"
+                  className="bg-magneta-50 text-sm font-semibold text-magneta-600"
                 >
                   {initials}
                 </AvatarFallback>
@@ -61,7 +61,7 @@ export function TopBar({
           <DropdownMenuPortal>
             <DropdownMenuContent
               align="end"
-              className="min-w-48 animate-scale-in rounded-lg border border-meridian-100 bg-white p-1 shadow-lg"
+              className="min-w-48 animate-scale-in rounded-lg border border-magneta-100 bg-white p-1 shadow-lg"
             >
               <DropdownMenuLabel className="px-2 py-1.5 text-sm font-normal text-ink">
                 <div className="flex flex-col">
@@ -71,7 +71,7 @@ export function TopBar({
                   )}
                 </div>
               </DropdownMenuLabel>
-              <DropdownMenuSeparator className="my-1 h-px bg-meridian-100" />
+              <DropdownMenuSeparator className="my-1 h-px bg-magneta-100" />
               <DropdownMenuItem
                 className="cursor-pointer rounded-lg px-2 py-1.5 text-sm text-ink-2 outline-none hover:bg-canvas hover:text-ink"
                 onSelect={() => router.push("/dashboard/settings")}

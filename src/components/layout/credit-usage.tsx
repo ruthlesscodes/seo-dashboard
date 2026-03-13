@@ -44,19 +44,19 @@ export function CreditUsage({ variant = "bar" }: { variant?: Variant }) {
   const remaining = usage?.credits?.remaining ?? limit - used;
   const pct = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
   const barColor =
-    pct < 80 ? "bg-meridian-600" : pct < 90 ? "bg-warning" : "bg-danger";
+    pct < 80 ? "bg-magneta-600" : pct < 90 ? "bg-warning" : "bg-danger";
 
   if (loading) {
     if (variant === "bar") {
       return (
         <div className="w-full space-y-1">
-          <div className="h-2 w-full animate-pulse rounded-lg bg-meridian-100" />
+          <div className="h-2 w-full animate-pulse rounded-lg bg-magneta-100" />
           <span className="text-xs text-ink-3">— / —</span>
         </div>
       );
     }
     return (
-      <div className="h-8 min-w-[4rem] animate-pulse rounded-lg bg-meridian-100" />
+      <div className="h-8 min-w-[4rem] animate-pulse rounded-lg bg-magneta-100" />
     );
   }
 
@@ -64,7 +64,7 @@ export function CreditUsage({ variant = "bar" }: { variant?: Variant }) {
     <div className={cn("flex items-center gap-2", variant === "bar" && "w-full flex-col")}>
       <div className={cn("flex items-center gap-2", variant === "bar" && "w-full")}>
         {variant === "bar" ? (
-          <Progress.Root value={pct} className="h-2 flex-1 overflow-hidden rounded-full bg-meridian-100">
+          <Progress.Root value={pct} className="h-2 flex-1 overflow-hidden rounded-full bg-magneta-100">
             <Progress.Indicator
               className={cn("h-full transition-[width] duration-700 ease-out", barColor)}
               style={{ width: `${pct}%` }}
@@ -91,7 +91,7 @@ export function CreditUsage({ variant = "bar" }: { variant?: Variant }) {
           className={cn(
             "rounded-lg transition-colors hover:bg-canvas active:scale-[0.98]",
             variant === "bar" && "w-full p-2 text-left",
-            variant === "pill" && "rounded-full border border-meridian-100 bg-canvas px-3 py-1.5 text-xs font-medium tabular-nums text-ink-2"
+            variant === "pill" && "rounded-full border border-magneta-100 bg-canvas px-3 py-1.5 text-xs font-medium tabular-nums text-ink-2"
           )}
           type="button"
         >
@@ -102,7 +102,7 @@ export function CreditUsage({ variant = "bar" }: { variant?: Variant }) {
           )}
         </button>
       </PopoverTrigger>
-      <PopoverContent align={variant === "bar" ? "center" : "end"} className="w-64 animate-scale-in rounded-xl border border-meridian-100 bg-white p-4 shadow-lg">
+      <PopoverContent align={variant === "bar" ? "center" : "end"} className="w-64 animate-scale-in rounded-xl border border-magneta-100 bg-white p-4 shadow-lg">
         <div className="space-y-2">
           <p className="text-sm font-bold text-ink">Credit usage</p>
           <p className="text-xs text-ink-3">

@@ -93,7 +93,7 @@ export default async function PreviewSlugPage({
         <h1 className="text-2xl font-extrabold tracking-tight text-ink">{name}</h1>
         <p className="text-sm text-ink-2">Preview — sign in to use this page</p>
       </div>
-      <div className="rounded-xl border border-meridian-100 bg-white p-8 text-center text-ink-2">
+      <div className="rounded-xl border border-magneta-100 bg-white p-8 text-center text-ink-2">
         <p>This is a preview of the page layout.</p>
         <Link href="/preview" className="mt-4 inline-block text-sm text-primary hover:underline">
           ← Back to Dashboard

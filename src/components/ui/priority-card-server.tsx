@@ -27,7 +27,7 @@ export async function PriorityCardServer({
 
     if (priorities.length === 0) {
       return (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-meridian-100 bg-success-bg py-16 text-center">
+        <div className="flex flex-col items-center justify-center rounded-xl border border-magneta-100 bg-success-bg py-16 text-center">
           <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-success-bg">
             <span className="text-2xl">🎉</span>
           </div>
@@ -49,13 +49,13 @@ export async function PriorityCardServer({
       return (
         <div className="rounded-xl border border-danger bg-danger-bg p-6 text-center">
           <p className="font-bold text-ink">Out of credits</p>
-          <p className="mt-1 text-sm text-ink-3">Upgrade your plan to run more audits. <a href="/dashboard/billing" className="font-medium text-meridian-600 hover:underline">View plans</a></p>
+          <p className="mt-1 text-sm text-ink-3">Upgrade your plan to run more audits. <a href="/dashboard/billing" className="font-medium text-magneta-600 hover:underline">View plans</a></p>
         </div>
       );
     }
     return (
-      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-meridian-100 bg-canvas py-12 text-center">
-        <p className="text-sm text-ink-3">Could not load priorities. <a href="/dashboard/audit" className="font-medium text-meridian-600 hover:underline">Run an audit</a></p>
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-magneta-100 bg-canvas py-12 text-center">
+        <p className="text-sm text-ink-3">Could not load priorities. <a href="/dashboard/audit" className="font-medium text-magneta-600 hover:underline">Run an audit</a></p>
       </div>
     );
   }
