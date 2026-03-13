@@ -29,9 +29,7 @@ export default function IntelligencePage() {
   const [researchTopic, setResearchTopic] = useState("");
   const [researchResult, setResearchResult] = useState<any>(null);
 
-  const [batchDomain, setBatchDomain] = useState("");
   const [batchKeywords, setBatchKeywords] = useState("");
-  const [batchCompetitors, setBatchCompetitors] = useState("");
   const [batchResult, setBatchResult] = useState<any>(null);
 
   async function handleAnalyze(e: React.FormEvent) {
@@ -368,21 +366,13 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Batch Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Analyze domain across keywords and optionally compare with competitors</p>
+              <p className="text-sm text-muted-foreground">Run batch research across multiple topics. For domain-specific analysis use the <strong>Domain Analysis</strong> tab, or <strong>Gap Analysis</strong> for competitor comparisons.</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBatch} className="flex flex-wrap gap-4">
-                <div className="min-w-[180px] flex-1 space-y-2">
-                  <Label>Domain</Label>
-                  <Input placeholder="yourdomain.com" value={batchDomain} onChange={(e) => setBatchDomain(e.target.value)} disabled={!!loading} />
-                </div>
                 <div className="min-w-[200px] flex-1 space-y-2">
-                  <Label>Keywords (comma-separated)</Label>
-                  <Input placeholder="keyword 1, keyword 2" value={batchKeywords} onChange={(e) => setBatchKeywords(e.target.value)} disabled={!!loading} />
-                </div>
-                <div className="min-w-[180px] flex-1 space-y-2">
-                  <Label>Competitor domains (optional)</Label>
-                  <Input placeholder="competitor1.com, competitor2.com" value={batchCompetitors} onChange={(e) => setBatchCompetitors(e.target.value)} disabled={!!loading} />
+                  <Label>Topics (comma-separated)</Label>
+                  <Input placeholder="topic 1, topic 2" value={batchKeywords} onChange={(e) => setBatchKeywords(e.target.value)} disabled={!!loading} />
                 </div>
                 <div className="flex items-end">
                   <Button type="submit" disabled={!!loading}>{loading === "batch" ? "Analyzing…" : "Run Batch"}</Button>

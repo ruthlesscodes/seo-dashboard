@@ -6,7 +6,7 @@ import { rankingsApi } from "@/lib/api-client";
 export async function checkRankings(body: {
   keywords: string[];
   domain: string;
-  region?: string;
+  country?: string;
 }) {
   const session = await auth();
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");

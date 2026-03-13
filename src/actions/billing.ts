@@ -14,3 +14,9 @@ export async function upgradePlan(body: { plan: string }) {
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
   return billingApi.upgrade(session.user.seoApiKey, body);
 }
+
+export async function getBillingPortalUrl() {
+  const session = await auth();
+  if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
+  return billingApi.portal(session.user.seoApiKey);
+}

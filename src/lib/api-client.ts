@@ -74,7 +74,7 @@ export const keywordsApi = {
 
 // ---- Rankings ----
 export const rankingsApi = {
-  check: (apiKey: string, body: { keywords: string[]; domain: string; region?: string }) =>
+  check: (apiKey: string, body: { keywords: string[]; domain: string; country?: string }) =>
     apiRequest("/api/rankings/check", { apiKey, body: body as any }),
   global: (apiKey: string, body: { keyword: string; domain: string; regions: string[] }) =>
     apiRequest("/api/rankings/global", { apiKey, body: body as any }),
@@ -214,6 +214,8 @@ export const billingApi = {
     apiRequest("/api/billing/plans", { apiKey, method: "GET" }),
   upgrade: (apiKey: string, body: { plan: string }) =>
     apiRequest("/api/billing/upgrade", { apiKey, body: body as any }),
+  portal: (apiKey: string) =>
+    apiRequest<{ success: boolean; data: { portalUrl: string } }>("/api/billing/portal", { apiKey, method: "GET" }),
 };
 
 // ---- Webhooks ----

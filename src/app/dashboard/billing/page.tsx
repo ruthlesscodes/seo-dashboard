@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { CheckCircle2, Zap, Rocket, Star } from "lucide-react";
-import { getPlans, upgradePlan } from "@/actions/billing";
+import { CheckCircle2, Zap, Rocket, Star, ExternalLink } from "lucide-react";
+import { getPlans, upgradePlan, getBillingPortalUrl } from "@/actions/billing";
 import { getUsage } from "@/actions/auth";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -40,6 +40,7 @@ export default function BillingPage() {
   const [plans, setPlans] = useState<any[]>([]);
   const [usage, setUsage] = useState<any>(null);
   const [upgrading, setUpgrading] = useState<string | null>(null);
+  const [portalLoading, setPortalLoading] = useState(false);
 
   useEffect(() => {
     Promise.all([getPlans(), getUsage()])
@@ -56,13 +57,27 @@ export default function BillingPage() {
     setUpgrading(plan);
     try {
       const res = await upgradePlan({ plan }) as any;
-      const url = res?.url ?? res?.data?.url;
+      const url = res?.data?.checkoutUrl ?? res?.checkoutUrl ?? res?.data?.url ?? res?.url;
       if (url) { window.location.href = url; return; }
       toast.success(`Upgraded to ${plan}`);
     } catch (err: any) {
       toast.error(err?.message ?? "Upgrade failed");
     } finally {
       setUpgrading(null);
+    }
+  }
+
+  async function handlePortal() {
+    setPortalLoading(true);
+    try {
+      const res = await getBillingPortalUrl() as any;
+      const url = res?.data?.portalUrl;
+      if (url) { window.location.href = url; return; }
+      toast.error("Could not open billing portal");
+    } catch (err: any) {
+      toast.error(err?.message ?? "Failed to open portal");
+    } finally {
+      setPortalLoading(false);
     }
   }
 
@@ -97,6 +112,12 @@ export default function BillingPage() {
                 style={{ width: `${Math.min(100, (creditsUsed / creditsLimit) * 100)}%` }}
               />
             </div>
+          )}
+          {currentPlan !== "FREE" && (
+            <Button variant="outline" size="sm" onClick={handlePortal} disabled={portalLoading} className="mt-2">
+              <ExternalLink className="mr-2 h-4 w-4" />
+              {portalLoading ? "Opening…" : "Manage Subscription"}
+            </Button>
           )}
         </CardContent>
       </Card>

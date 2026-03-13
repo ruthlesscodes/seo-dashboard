@@ -43,7 +43,7 @@ export default function SettingsPage() {
     }
     setWebhookLoading(true);
     try {
-      await configureWebhook({ url: webhookUrl.trim(), events: ["pipeline.completed", "monitor.change", "ranking.drop", "audit.completed"] });
+      await configureWebhook({ url: webhookUrl.trim(), events: ["pipeline.completed", "monitor.changed", "ranking.dropped", "audit.completed"] });
       toast.success("Webhook configured");
     } catch (err: any) {
       toast.error(err?.message ?? "Webhook configuration failed");
