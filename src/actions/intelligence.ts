@@ -35,9 +35,8 @@ export async function runIntelligenceResearch(body: { topic: string }) {
 }
 
 export async function runIntelligenceBatch(body: {
-  domain: string;
-  keywords: string[];
-  competitorDomains?: string[];
+  prompts: { topic: string; depth?: "shallow" | "deep" }[];
+  model?: string;
 }) {
   const session = await auth();
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");

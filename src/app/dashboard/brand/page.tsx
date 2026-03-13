@@ -36,7 +36,7 @@ export default function BrandPage() {
     if (!imagesQuery.trim()) { toast.error("Enter search query"); return; }
     setLoading("images"); setImagesResult(null);
     try {
-      const res = await getBrandImages({ query: imagesQuery.trim() }) as any;
+      const res = await getBrandImages({ brand: imagesQuery.trim() }) as any;
       setImagesResult(res?.data ?? res);
       toast.success("Brand images loaded");
     } catch (err: any) { toast.error(err?.message ?? "Failed"); }

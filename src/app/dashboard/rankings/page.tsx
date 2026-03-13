@@ -122,7 +122,6 @@ export default function RankingsPage() {
     try {
       const res = await getSerpSnapshot({
         keyword: snapshotKeyword.trim(),
-        domain: snapshotDomain?.trim() || undefined,
       });
       setSnapshotResult((res as any)?.data ?? res);
       toast.success("SERP snapshot complete");

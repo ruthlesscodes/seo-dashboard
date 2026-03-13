@@ -7,6 +7,8 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
+import { authApi } from "@/lib/api-client";
+import crypto from "crypto";
 
 export const authConfig: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -48,8 +50,41 @@ export const authConfig: NextAuthConfig = {
         ]
       : []),
   ],
+  events: {
+    async createUser({ user }) {
+      // When a user is created via OAuth (e.g. Google), register them with the backend API
+      if (!user.email) return;
+      try {
+        const tempPassword = crypto.randomBytes(24).toString("base64url");
+        const domain = user.email.split("@")[1] || "unknown.com";
+        const res = await authApi.register({
+          name: user.name || user.email.split("@")[0],
+          email: user.email,
+          password: tempPassword,
+          domain,
+        });
+        const data = res as {
+          apiKey?: string;
+          organization?: { id?: string; plan?: string };
+        };
+        if (data.apiKey && user.id) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: {
+              seoApiKey: data.apiKey,
+              seoOrgId: data.organization?.id ?? null,
+              seoPlan: data.organization?.plan ?? "FREE",
+              seoDomain: domain,
+            },
+          });
+        }
+      } catch {
+        // Backend registration failed; user can retry from settings
+      }
+    },
+  },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.seoApiKey = (user as { seoApiKey?: string }).seoApiKey;
         token.seoOrgId = (user as { seoOrgId?: string }).seoOrgId;
@@ -57,8 +92,9 @@ export const authConfig: NextAuthConfig = {
         token.seoDomain = (user as { seoDomain?: string }).seoDomain;
         return token;
       }
+      // Re-fetch SEO credentials from DB if missing (e.g. after OAuth createUser event)
       const sub = token.sub as string | undefined;
-      if (sub && !token.seoApiKey) {
+      if (sub && (!token.seoApiKey || trigger === "update")) {
         try {
           const dbUser = await prisma.user.findUnique({
             where: { id: sub },

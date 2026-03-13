@@ -29,7 +29,7 @@ export async function getSerpFeatures(body: { keywords: string[] }) {
   return rankingsApi.serpFeatures(session.user.seoApiKey, body);
 }
 
-export async function getSerpSnapshot(body: { keyword: string; domain?: string; region?: string }) {
+export async function getSerpSnapshot(body: { keyword: string; country?: string }) {
   const session = await auth();
   if (!session?.user?.seoApiKey) throw new Error("Not authenticated");
   return rankingsApi.serpSnapshot(session.user.seoApiKey, body);

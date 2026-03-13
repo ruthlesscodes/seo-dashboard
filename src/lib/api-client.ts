@@ -56,7 +56,7 @@ export async function apiRequest<T = unknown>(
 
 // ---- Auth ----
 export const authApi = {
-  register: (body: { name: string; domain: string; email: string }) =>
+  register: (body: { name: string; domain: string; email: string; password: string }) =>
     apiRequest("/api/auth/register", { apiKey: "", body: body as any }),
   usage: (apiKey: string) =>
     apiRequest("/api/auth/usage", { apiKey, method: "GET" }),
@@ -80,7 +80,7 @@ export const rankingsApi = {
     apiRequest("/api/rankings/global", { apiKey, body: body as any }),
   serpFeatures: (apiKey: string, body: { keywords: string[] }) =>
     apiRequest("/api/rankings/serp-features", { apiKey, body: body as any }),
-  serpSnapshot: (apiKey: string, body: { keyword: string; domain?: string; region?: string }) =>
+  serpSnapshot: (apiKey: string, body: { keyword: string; country?: string }) =>
     apiRequest("/api/rankings/serp-snapshot", { apiKey, body: body as any }),
 };
 
@@ -104,7 +104,7 @@ export const searchApi = {
     apiRequest("/api/search/news", { apiKey, body: body as any }),
   github: (apiKey: string, body: { query: string }) =>
     apiRequest("/api/search/github", { apiKey, body: body as any }),
-  research: (apiKey: string, body: { query: string; depth?: string }) =>
+  research: (apiKey: string, body: { query: string; limit?: number }) =>
     apiRequest("/api/search/research", { apiKey, body: body as any, timeoutMs: 120_000 }),
 };
 
@@ -112,13 +112,13 @@ export const searchApi = {
 export const brandApi = {
   mentions: (apiKey: string, body: { brand: string; limit?: number }) =>
     apiRequest("/api/brand/mentions", { apiKey, body: body as any }),
-  images: (apiKey: string, body: { query: string }) =>
+  images: (apiKey: string, body: { brand: string; limit?: number }) =>
     apiRequest("/api/brand/images", { apiKey, body: body as any }),
 };
 
 // ---- Content ----
 export const contentApi = {
-  generate: (apiKey: string, body: { keyword: string; segment?: string }) =>
+  generate: (apiKey: string, body: { keyword: string; segment?: string; tone?: string; targetWordCount?: number }) =>
     apiRequest("/api/content/generate", { apiKey, body: body as any, timeoutMs: 60_000 }),
   brief: (apiKey: string, body: { keyword: string }) =>
     apiRequest("/api/content/brief", { apiKey, body: body as any }),
@@ -154,7 +154,7 @@ export const auditApi = {
     apiRequest("/api/audit/internal-links", { apiKey, body: body as any, timeoutMs: 180_000 }),
   screenshot: (apiKey: string, body: { url: string }) =>
     apiRequest("/api/audit/screenshot", { apiKey, body: body as any }),
-  lighthouse: (apiKey: string, body: { url: string; strategy?: "mobile" | "desktop" }) =>
+  lighthouse: (apiKey: string, body: { url: string; mobile?: boolean }) =>
     apiRequest("/api/audit/lighthouse", { apiKey, body: body as any, timeoutMs: 90_000 }),
   agent: (apiKey: string, body: { domain: string }) =>
     apiRequest("/api/audit/agent", { apiKey, body: body as any, timeoutMs: 120_000 }),
@@ -186,7 +186,7 @@ export const intelligenceApi = {
     apiRequest("/api/intelligence/agent", { apiKey, body: body as any, timeoutMs: 120_000 }),
   research: (apiKey: string, body: { topic: string }) =>
     apiRequest("/api/intelligence/research", { apiKey, body: body as any }),
-  batch: (apiKey: string, body: { domain: string; keywords: string[]; competitorDomains?: string[] }) =>
+  batch: (apiKey: string, body: { prompts: { topic: string; depth?: "shallow" | "deep" }[]; model?: string }) =>
     apiRequest("/api/intelligence/batch", { apiKey, body: body as any, timeoutMs: 180_000 }),
 };
 
@@ -214,12 +214,10 @@ export const billingApi = {
     apiRequest("/api/billing/plans", { apiKey, method: "GET" }),
   upgrade: (apiKey: string, body: { plan: string }) =>
     apiRequest("/api/billing/upgrade", { apiKey, body: body as any }),
-  portal: (apiKey: string) =>
-    apiRequest("/api/billing/portal", { apiKey, method: "GET" }),
 };
 
 // ---- Webhooks ----
 export const webhooksApi = {
-  configure: (apiKey: string, body: { url: string; events?: string[] }) =>
+  configure: (apiKey: string, body: { url: string; events: string[] }) =>
     apiRequest("/api/webhooks/configure", { apiKey, body: body as any }),
 };
