@@ -35,7 +35,6 @@ export default function RankingsPage() {
   const [serpResults, setSerpResults] = useState<any[]>([]);
 
   const [snapshotKeyword, setSnapshotKeyword] = useState("");
-  const [snapshotDomain, setSnapshotDomain] = useState(domain);
   const [snapshotResult, setSnapshotResult] = useState<any>(null);
 
   useEffect(() => {
@@ -417,15 +416,6 @@ export default function RankingsPage() {
                     placeholder="e.g. best seo tool"
                     value={snapshotKeyword}
                     onChange={(e) => setSnapshotKeyword(e.target.value)}
-                    disabled={loading !== null}
-                  />
-                </div>
-                <div className="w-48 space-y-2">
-                  <Label>Domain (optional)</Label>
-                  <Input
-                    placeholder="example.com"
-                    value={snapshotDomain}
-                    onChange={(e) => setSnapshotDomain(e.target.value)}
                     disabled={loading !== null}
                   />
                 </div>
