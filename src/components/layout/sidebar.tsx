@@ -79,7 +79,7 @@ export function Sidebar({
   const pathname = usePathname();
 
   return (
-    <aside className="flex w-[220px] flex-col border-r border-magneta-100 bg-white">
+    <aside className="flex w-[220px] flex-col border-r border-meridian-100 bg-white">
       <div className="flex flex-1 flex-col overflow-y-auto p-3">
         {(orgName || plan) && (
           <div className="mb-4 flex items-center gap-2 px-2">
@@ -87,8 +87,8 @@ export function Sidebar({
             <span
               className={cn(
                 "rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-                plan === "FREE" && "bg-magneta-50 text-magneta-600",
-                plan !== "FREE" && "bg-magneta-50 text-magneta-600"
+                plan === "FREE" && "bg-meridian-50 text-meridian-600",
+                plan !== "FREE" && "bg-meridian-50 text-meridian-600"
               )}
             >
               {plan}
@@ -114,9 +114,9 @@ export function Sidebar({
                         className={cn(
                           "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
                           isActive
-                            ? "border-l-2 border-magneta-600 bg-magneta-50 font-semibold text-magneta-600"
+                            ? "border-l-2 border-meridian-600 bg-meridian-50 font-semibold text-meridian-600"
                             : highlight
-                            ? "text-magneta-600 hover:bg-canvas hover:text-magneta-800"
+                            ? "text-meridian-600 hover:bg-canvas hover:text-meridian-800"
                             : "text-ink-2 hover:bg-canvas hover:text-ink"
                         )}
                         style={isActive ? { marginLeft: -2, paddingLeft: 14 } : undefined}
@@ -135,7 +135,7 @@ export function Sidebar({
           ))}
         </nav>
       </div>
-      <div className="border-t border-magneta-100 p-3">
+      <div className="border-t border-meridian-100 p-3">
         <p className="mb-2 px-2 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Credits</p>
         <CreditUsage variant="bar" />
       </div>

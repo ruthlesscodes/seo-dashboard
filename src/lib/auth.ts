@@ -10,6 +10,7 @@ import { authApi } from "@/lib/api-client";
 
 export const authConfig: NextAuthConfig = {
   secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   providers: [
     Credentials({
       name: "credentials",

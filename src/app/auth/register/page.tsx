@@ -43,11 +43,11 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4 animate-fade-up">
-      <Card className="w-full max-w-md border-border">
+    <div className="flex min-h-screen items-center justify-center bg-canvas p-4 animate-fade-up">
+      <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="font-display text-2xl font-bold">Create an account</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl font-extrabold tracking-tight text-ink">Create an account</CardTitle>
+          <CardDescription className="text-ink-2">
             Enter your details to get started
           </CardDescription>
         </CardHeader>
@@ -107,9 +107,9 @@ export default function RegisterPage() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Creating account…" : "Create account"}
             </Button>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-center text-sm text-ink-3">
               Already have an account?{" "}
-              <Link href="/auth/login" className="text-primary hover:underline">
+              <Link href="/auth/login" className="font-medium text-meridian-600 hover:underline">
                 Sign in
               </Link>
             </p>

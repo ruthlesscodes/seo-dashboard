@@ -24,7 +24,7 @@ const DIFFICULTY_CONFIG = {
 const IMPACT_CONFIG = {
   high: { label: "High impact", color: "#A32D2D", bg: "bg-danger-bg" },
   medium: { label: "Medium impact", color: "#BA7517", bg: "bg-warning-bg" },
-  low: { label: "Low impact", color: "#7A94B0", bg: "bg-magneta-50" },
+  low: { label: "Low impact", color: "#7A94B0", bg: "bg-meridian-50" },
 };
 
 function CodeBlock({ code }: { code: string }) {
@@ -37,10 +37,10 @@ function CodeBlock({ code }: { code: string }) {
   }
 
   return (
-    <div className="relative mt-2 overflow-hidden rounded-xl border border-magneta-100 bg-magneta-50 p-4">
+    <div className="relative mt-2 overflow-hidden rounded-xl border border-meridian-100 bg-meridian-50 p-4">
       <button
         onClick={handleCopy}
-        className="absolute right-2 top-2 flex items-center gap-1 rounded-md border border-magneta-100 bg-white px-2 py-1 text-xs font-medium text-ink-2 transition-colors hover:bg-canvas"
+        className="absolute right-2 top-2 flex items-center gap-1 rounded-md border border-meridian-100 bg-white px-2 py-1 text-xs font-medium text-ink-2 transition-colors hover:bg-canvas"
       >
         {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
         {copied ? "Copied" : "Copy"}
@@ -86,7 +86,7 @@ export function PriorityCardClient({
 
   if (done) {
     return (
-      <div className="flex items-center gap-3 rounded-xl border border-magneta-100 bg-success-bg px-5 py-4">
+      <div className="flex items-center gap-3 rounded-xl border border-meridian-100 bg-success-bg px-5 py-4">
         <CheckCircle2 className="h-5 w-5 shrink-0 text-success" />
         <div className="flex-1">
           <p className="text-sm font-semibold text-ink-3 line-through">{guide.title}</p>
@@ -98,7 +98,7 @@ export function PriorityCardClient({
 
   return (
     <div
-      className="overflow-hidden rounded-xl border border-magneta-100 bg-white transition-all duration-200"
+      className="overflow-hidden rounded-xl border border-meridian-100 bg-white transition-all duration-200"
       style={{ borderColor: expanded ? "var(--tw-border-opacity)" : undefined }}
     >
       <button
@@ -138,8 +138,8 @@ export function PriorityCardClient({
       </button>
 
       {expanded && (
-        <div className="border-t border-magneta-100 px-5 pb-5 pt-0">
-          <div className="mt-4 rounded-xl border border-magneta-100 bg-canvas p-4">
+        <div className="border-t border-meridian-100 px-5 pb-5 pt-0">
+          <div className="mt-4 rounded-xl border border-meridian-100 bg-canvas p-4">
             <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Why this matters</p>
             <p className="text-sm text-ink-2 leading-relaxed">{guide.why}</p>
           </div>
@@ -175,7 +175,7 @@ export function PriorityCardClient({
             <button
               onClick={handleMarkDone}
               disabled={checking}
-              className="flex items-center gap-2 rounded-lg bg-magneta-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-magneta-800 disabled:opacity-70"
+              className="flex items-center gap-2 rounded-lg bg-meridian-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-meridian-800 disabled:opacity-70"
             >
               {checking ? (
                 <>

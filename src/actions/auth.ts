@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { auth, signIn } from "@/lib/auth";
 import { CredentialsSignin } from "next-auth";
 import { authApi } from "@/lib/api-client";

@@ -41,7 +41,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Magneta brand
+        // Meridian (blue) brand
         canvas: "#F4F8FE",
         ink: {
           DEFAULT: "#0E1E35",
@@ -49,7 +49,7 @@ export default {
           3: "#7A94B0",
           4: "#ADBDD1",
         },
-        magneta: {
+        meridian: {
           50: "#E6F1FB",
           100: "#B5D4F4",
           200: "#85B7EB",

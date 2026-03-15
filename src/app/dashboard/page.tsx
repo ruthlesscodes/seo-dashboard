@@ -66,7 +66,7 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-4xl space-y-6">
         {/* Page header */}
         <div className="mb-6">
-          <div className="mb-1 text-[11px] font-bold uppercase tracking-[0.08em] text-magneta-400">Overview</div>
+          <div className="mb-1 text-[11px] font-bold uppercase tracking-[0.08em] text-meridian-400">Overview</div>
           <h1 className="text-2xl font-extrabold tracking-tight text-ink">Hey {userName} 👋</h1>
           <p className="mt-1 text-sm text-ink-2">
             {domain ? `Here&apos;s what&apos;s happening with ${domain}` : "Here&apos;s your SEO overview"}
@@ -75,7 +75,7 @@ export default async function DashboardPage() {
 
         {/* Metric cards */}
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-magneta-100 bg-white p-5 sm:col-span-2">
+          <div className="rounded-xl border border-meridian-100 bg-white p-5 sm:col-span-2">
             <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">SEO Score</p>
             <div className="flex items-center gap-6">
               <div className="text-center">
@@ -89,7 +89,7 @@ export default async function DashboardPage() {
                 </div>
               </div>
               <div className="flex-1">
-                <div className="relative h-2.5 overflow-hidden rounded-full bg-magneta-100">
+                <div className="relative h-2.5 overflow-hidden rounded-full bg-meridian-100">
                   <div
                     className="h-full rounded-full transition-all duration-1000"
                     style={{ width: `${score}%`, background: color }}
@@ -107,7 +107,7 @@ export default async function DashboardPage() {
             {!score && (
               <Link
                 href="/dashboard/audit"
-                className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-magneta-600 py-3 text-sm font-bold text-white transition-colors hover:bg-magneta-800"
+                className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-meridian-600 py-3 text-sm font-bold text-white transition-colors hover:bg-meridian-800"
               >
                 Run my first audit <ChevronRight className="h-4 w-4" />
               </Link>
@@ -115,10 +115,10 @@ export default async function DashboardPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="flex-1 rounded-xl border border-magneta-100 bg-canvas p-4">
+            <div className="flex-1 rounded-xl border border-meridian-100 bg-canvas p-4">
               <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Credits</p>
               <p className="mt-1 text-3xl font-extrabold tracking-tight text-ink">{creditsRemaining}</p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-magneta-100">
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-meridian-100">
                 <div
                   className="h-full rounded-full"
                   style={{ width: `${creditPct}%`, background: creditPct > 30 ? "#1D9E75" : "#A32D2D" }}
@@ -126,7 +126,7 @@ export default async function DashboardPage() {
               </div>
               <p className="mt-1 text-xs text-ink-3">remaining this month</p>
             </div>
-            <div className="flex-1 rounded-xl border border-magneta-100 bg-canvas p-4">
+            <div className="flex-1 rounded-xl border border-meridian-100 bg-canvas p-4">
               <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Monitor Alerts</p>
               <p className="mt-1 text-3xl font-extrabold tracking-tight" style={{ color: changeCount > 0 ? "#BA7517" : undefined }}>
                 {changeCount}
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
             </div>
             <Link
               href="/dashboard/priorities"
-              className="flex items-center gap-1 rounded-lg border border-magneta-100 bg-magneta-50 px-3 py-1.5 text-sm font-bold text-magneta-600 transition-colors hover:bg-magneta-100"
+              className="flex items-center gap-1 rounded-lg border border-meridian-100 bg-meridian-50 px-3 py-1.5 text-sm font-bold text-meridian-600 transition-colors hover:bg-meridian-100"
             >
               See all <ChevronRight className="h-3.5 w-3.5" />
             </Link>
@@ -154,12 +154,12 @@ export default async function DashboardPage() {
           {domain ? (
             <PriorityCardServer domain={domain} limit={3} />
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-magneta-100 bg-canvas py-16 text-center">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-magneta-50">
-                <AlertCircle className="h-6 w-6 text-magneta-600" />
+            <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-meridian-100 bg-canvas py-16 text-center">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-meridian-50">
+                <AlertCircle className="h-6 w-6 text-meridian-600" />
               </div>
               <p className="text-sm font-bold text-ink">No domain set</p>
-              <p className="mt-1 text-xs text-ink-3">Go to <Link href="/dashboard/settings" className="font-medium text-magneta-600 hover:underline">Settings</Link> to add your domain.</p>
+              <p className="mt-1 text-xs text-ink-3">Go to <Link href="/dashboard/settings" className="font-medium text-meridian-600 hover:underline">Settings</Link> to add your domain.</p>
             </div>
           )}
         </div>
@@ -177,7 +177,7 @@ export default async function DashboardPage() {
               {recentChanges.map((c: any, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 rounded-xl border border-magneta-100 bg-white px-4 py-3"
+                  className="flex items-center gap-3 rounded-xl border border-meridian-100 bg-white px-4 py-3"
                 >
                   <Eye className="h-4 w-4 shrink-0 text-warning" />
                   <span className="flex-1 truncate text-sm text-ink-2">{c.url}</span>
@@ -200,10 +200,10 @@ export default async function DashboardPage() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-center gap-3 rounded-xl border border-magneta-100 bg-white px-4 py-3.5 transition-colors hover:border-magneta-200 hover:bg-canvas"
+                className="group flex items-center gap-3 rounded-xl border border-meridian-100 bg-white px-4 py-3.5 transition-colors hover:border-meridian-200 hover:bg-canvas"
               >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-magneta-50">
-                  <Icon className="h-4 w-4 text-magneta-600" />
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-meridian-50">
+                  <Icon className="h-4 w-4 text-meridian-600" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-ink">{label}</p>
