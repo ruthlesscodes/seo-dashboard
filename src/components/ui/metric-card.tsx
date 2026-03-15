@@ -14,7 +14,7 @@ export function MetricCard({ label, value, change, icon, className, staggerIndex
   return (
     <div
       className={cn(
-        "rounded-[6px] border border-meridian-100 bg-white p-4 transition-[border-color,box-shadow] duration-150 hover:border-meridian-200 hover:shadow-[0_0_0_1px_rgba(24,95,165,0.2)]",
+        "rounded-xl border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-4 transition-[border-color,box-shadow] duration-150 hover:border-meridian-200 hover:shadow-[0_0_0_1px_rgba(24,95,165,0.2)]",
         "animate-fade-up",
         className
       )}

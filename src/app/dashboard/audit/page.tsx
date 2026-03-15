@@ -21,10 +21,11 @@ function scoreColor(score: number) {
 }
 
 function ScoreBox({ label, score }: { label: string; score: number }) {
+  const accent = score >= 90 ? "border-l-success" : score >= 50 ? "border-l-warning" : "border-l-danger";
   return (
-    <div className="flex flex-col items-center gap-1 rounded-lg border border-meridian-100 bg-canvas px-4 py-3">
+    <div className={`flex flex-col items-center gap-1 rounded-lg border border-meridian-100 border-l-4 ${accent} bg-white px-4 py-3`}>
       <span className={`text-2xl font-bold ${scoreColor(score)}`}>{score}</span>
-      <span className="text-xs text-ink-2">{label}</span>
+      <span className="text-xs font-medium text-ink-2">{label}</span>
     </div>
   );
 }

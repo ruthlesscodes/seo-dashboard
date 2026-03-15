@@ -246,7 +246,7 @@ export default function CompetitorsPage() {
                       </div>
                       <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-4 text-center">
                         <p className="mb-1 text-xs text-ink-2">Competitor</p>
-                        <p className="text-3xl font-bold text-red-500">{compareResult.competitorScore ?? "—"}</p>
+                        <p className="text-3xl font-bold text-danger">{compareResult.competitorScore ?? "—"}</p>
                       </div>
                     </div>
                   )}

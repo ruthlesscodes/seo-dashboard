@@ -82,7 +82,7 @@ export function PriorityCardClient({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-meridian-100 bg-white transition-all duration-200">
+    <div className="overflow-hidden rounded-xl border border-meridian-100 border-l-4 bg-white transition-all duration-200" style={{ borderLeftColor: impact.color }}>
       <button className="flex w-full items-start gap-4 px-5 py-4 text-left" onClick={() => setExpanded(!expanded)}>
         <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold" style={{ background: `${impact.color}18`, color: impact.color, border: `1px solid ${impact.color}40` }}>
           {index + 1}

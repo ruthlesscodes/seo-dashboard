@@ -149,27 +149,27 @@ export default function PipelinePage() {
                 {(jobData.auditScore != null || jobData.avgPosition != null) && (
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {jobData.auditScore != null && (
-                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
-                        <p className="text-xl font-bold">{jobData.auditScore}</p>
-                        <p className="text-xs text-ink-2">Audit Score</p>
+                      <div className="rounded-lg border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-3 text-center">
+                        <p className="text-xl font-bold text-ink">{jobData.auditScore}</p>
+                        <p className="text-xs font-medium text-ink-2">Audit Score</p>
                       </div>
                     )}
                     {jobData.avgPosition != null && (
-                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
-                        <p className="text-xl font-bold">{jobData.avgPosition}</p>
-                        <p className="text-xs text-ink-2">Avg Position</p>
+                      <div className="rounded-lg border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-3 text-center">
+                        <p className="text-xl font-bold text-ink">{jobData.avgPosition}</p>
+                        <p className="text-xs font-medium text-ink-2">Avg Position</p>
                       </div>
                     )}
                     {jobData.issuesFound != null && (
-                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
-                        <p className="text-xl font-bold">{jobData.issuesFound}</p>
-                        <p className="text-xs text-ink-2">Issues</p>
+                      <div className="rounded-lg border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-3 text-center">
+                        <p className="text-xl font-bold text-ink">{jobData.issuesFound}</p>
+                        <p className="text-xs font-medium text-ink-2">Issues</p>
                       </div>
                     )}
                     {jobData.creditsUsed != null && (
-                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
-                        <p className="text-xl font-bold">{jobData.creditsUsed}</p>
-                        <p className="text-xs text-ink-2">Credits</p>
+                      <div className="rounded-lg border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-3 text-center">
+                        <p className="text-xl font-bold text-ink">{jobData.creditsUsed}</p>
+                        <p className="text-xs font-medium text-ink-2">Credits</p>
                       </div>
                     )}
                   </div>
@@ -179,9 +179,9 @@ export default function PipelinePage() {
                     <h3 className="mb-2 font-medium">Recommendations</h3>
                     <div className="space-y-2">
                       {jobData.recommendations.map((r: any, i: number) => (
-                        <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
+                        <div key={i} className="rounded-lg border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-3">
                           <Badge variant={r.priority === "critical" ? "destructive" : "outline"} className="mb-1">{r.priority}</Badge>
-                          <p className="text-sm font-medium">{r.title ?? r.action}</p>
+                          <p className="text-sm font-medium text-ink">{r.title ?? r.action}</p>
                           {r.description && <p className="text-sm text-ink-2">{r.description}</p>}
                         </div>
                       ))}

@@ -43,7 +43,7 @@ export function ScoreRing({
           className="transition-all duration-500"
         />
       </svg>
-      <span className="absolute text-2xl font-bold tabular-nums">{score}</span>
+      <span className="absolute text-2xl font-bold tabular-nums text-ink">{score}</span>
     </div>
   );
 }

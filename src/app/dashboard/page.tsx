@@ -73,8 +73,8 @@ export default async function DashboardPage() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-meridian-100 bg-white p-5 sm:col-span-2">
-            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">SEO Score</p>
+          <div className="rounded-xl border border-meridian-100 border-l-4 bg-white p-5 sm:col-span-2" style={{ borderLeftColor: score ? color : "#B5D4F4" }}>
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-ink-2">SEO Score</p>
             <div className="flex items-center gap-6">
               <div className="text-center">
                 <div className="text-6xl font-extrabold tabular-nums tracking-tight" style={{ color }}>{score || "—"}</div>
@@ -90,9 +90,9 @@ export default async function DashboardPage() {
                 <div className="relative h-2.5 overflow-hidden rounded-full bg-meridian-100">
                   <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${score}%`, background: color }} />
                 </div>
-                <div className="mt-3 flex justify-between text-xs text-ink-3"><span>0</span><span>50</span><span>100</span></div>
+                <div className="mt-3 flex justify-between text-xs text-ink-2"><span>0</span><span>50</span><span>100</span></div>
                 {lastAuditDate && (
-                  <p className="mt-2 flex items-center gap-1 text-xs text-ink-3">
+                  <p className="mt-2 flex items-center gap-1 text-xs text-ink-2">
                     <Clock className="h-3 w-3" />
                     Last checked {new Date(lastAuditDate).toLocaleDateString("en", { month: "short", day: "numeric" })}
                   </p>
@@ -107,18 +107,18 @@ export default async function DashboardPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="flex-1 rounded-xl border border-meridian-100 bg-canvas p-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Credits</p>
+            <div className="flex-1 rounded-xl border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-2">Credits</p>
               <p className="mt-1 text-3xl font-extrabold tracking-tight text-ink">{creditsRemaining}</p>
               <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-meridian-100">
                 <div className="h-full rounded-full" style={{ width: `${creditPct}%`, background: creditPct > 30 ? "#1D9E75" : "#A32D2D" }} />
               </div>
-              <p className="mt-1 text-xs text-ink-3">remaining this month</p>
+              <p className="mt-1 text-xs text-ink-2">remaining this month</p>
             </div>
-            <div className="flex-1 rounded-xl border border-meridian-100 bg-canvas p-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-3">Monitor Alerts</p>
-              <p className="mt-1 text-3xl font-extrabold tracking-tight" style={{ color: changeCount > 0 ? "#BA7517" : undefined }}>{changeCount}</p>
-              <p className="mt-1 text-xs text-ink-3">{changeCount > 0 ? "changes detected" : "no recent changes"}</p>
+            <div className="flex-1 rounded-xl border border-meridian-100 border-l-4 border-l-meridian-400 bg-white p-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-ink-2">Monitor Alerts</p>
+              <p className="mt-1 text-3xl font-extrabold tracking-tight text-ink" style={changeCount > 0 ? { color: "#BA7517" } : undefined}>{changeCount}</p>
+              <p className="mt-1 text-xs text-ink-2">{changeCount > 0 ? "changes detected" : "no recent changes"}</p>
             </div>
           </div>
         </div>
