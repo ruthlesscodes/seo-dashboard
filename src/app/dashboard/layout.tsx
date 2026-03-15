@@ -15,7 +15,7 @@ export default async function DashboardLayout({
   const domain = (session.user as { seoDomain?: string }).seoDomain;
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-canvas">
       <Sidebar plan={plan} orgName={session.user.name ?? undefined} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar user={session.user} domain={domain} />

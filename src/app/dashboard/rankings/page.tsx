@@ -132,12 +132,12 @@ export default function RankingsPage() {
   }
 
   function renderChange(change: number | undefined) {
-    if (change == null) return <span className="text-muted-foreground">—</span>;
+    if (change == null) return <span className="text-ink-2">—</span>;
     if (change > 0)
       return <span className="text-rank-up">↑ {change}</span>;
     if (change < 0)
       return <span className="text-rank-down">↓ {Math.abs(change)}</span>;
-    return <span className="text-muted-foreground">—</span>;
+    return <span className="text-ink-2">—</span>;
   }
 
   const canUseGlobal = hasFeature(plan, "GROWTH");
@@ -147,13 +147,13 @@ export default function RankingsPage() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Rankings</h1>
-        <p className="text-muted-foreground">
+        <p className="text-ink-2">
           Track keyword positions across regions
         </p>
       </div>
 
       <Tabs defaultValue="positions" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="positions" className="gap-2">
             <TrendingUp className="h-4 w-4" /> Position Tracker
           </TabsTrigger>
@@ -172,7 +172,7 @@ export default function RankingsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Position Tracker</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Check current rankings for your keywords
               </p>
             </CardHeader>
@@ -203,10 +203,10 @@ export default function RankingsPage() {
                 </div>
               </form>
               {positionResults.length > 0 && (
-                <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+                <div className="mt-4 overflow-x-auto rounded-lg border border-meridian-100">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                      <tr className="border-b border-meridian-100 bg-meridian-50">
                         <th className="px-4 py-3 text-left font-medium">Keyword</th>
                         <th className="px-4 py-3 text-left font-medium">Current</th>
                         <th className="px-4 py-3 text-left font-medium">Previous</th>
@@ -217,14 +217,14 @@ export default function RankingsPage() {
                     </thead>
                     <tbody>
                       {positionResults.map((row: any, i) => (
-                        <tr key={i} className="border-b border-border last:border-0">
+                        <tr key={i} className="border-b border-meridian-100 last:border-0">
                           <td className="px-4 py-2 font-medium">{row.keyword ?? row.key}</td>
                           <td className="px-4 py-2 font-mono">{row.position ?? row.current ?? "—"}</td>
                           <td className="px-4 py-2 font-mono">{row.previousPosition ?? row.previous ?? "—"}</td>
                           <td className="px-4 py-2">
                             {renderChange(row.change ?? row.delta)}
                           </td>
-                          <td className="max-w-[180px] truncate px-4 py-2 font-mono text-muted-foreground">
+                          <td className="max-w-[180px] truncate px-4 py-2 font-mono text-ink-2">
                             {row.url ?? "—"}
                           </td>
                           <td className="px-4 py-2">{row.region ?? "—"}</td>
@@ -244,7 +244,7 @@ export default function RankingsPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">Global rankings</p>
+                  <p className="text-sm text-ink-2">Global rankings</p>
                   <Button className="mt-2" asChild>
                     <a href="/dashboard/billing">Upgrade</a>
                   </Button>
@@ -253,7 +253,7 @@ export default function RankingsPage() {
             )}
             <CardHeader>
               <CardTitle>Global Rankings</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Check positions across multiple regions
               </p>
             </CardHeader>
@@ -274,7 +274,7 @@ export default function RankingsPage() {
                     {REGIONS.map((r) => (
                       <label
                         key={r}
-                        className="flex cursor-pointer items-center gap-2 rounded-md border border-border px-3 py-2"
+                        className="flex cursor-pointer items-center gap-2 rounded-md border border-meridian-100 px-3 py-2"
                       >
                         <input
                           type="checkbox"
@@ -296,10 +296,10 @@ export default function RankingsPage() {
                 </Button>
               </form>
               {globalResults.length > 0 && (
-                <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+                <div className="mt-4 overflow-x-auto rounded-lg border border-meridian-100">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                      <tr className="border-b border-meridian-100 bg-meridian-50">
                         <th className="px-4 py-3 text-left font-medium">Region</th>
                         <th className="px-4 py-3 text-left font-medium">Position</th>
                         <th className="px-4 py-3 text-left font-medium">URL</th>
@@ -307,10 +307,10 @@ export default function RankingsPage() {
                     </thead>
                     <tbody>
                       {globalResults.map((row: any, i) => (
-                        <tr key={i} className="border-b border-border last:border-0">
+                        <tr key={i} className="border-b border-meridian-100 last:border-0">
                           <td className="px-4 py-2">{row.region ?? row.country ?? "—"}</td>
                           <td className="px-4 py-2 font-mono">{row.position ?? row.rank ?? "—"}</td>
-                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-muted-foreground">
+                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-ink-2">
                             {row.url ?? "—"}
                           </td>
                         </tr>
@@ -329,7 +329,7 @@ export default function RankingsPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">SERP Features</p>
+                  <p className="text-sm text-ink-2">SERP Features</p>
                   <Button className="mt-2" asChild>
                     <a href="/dashboard/billing">Upgrade</a>
                   </Button>
@@ -338,7 +338,7 @@ export default function RankingsPage() {
             )}
             <CardHeader>
               <CardTitle>SERP Features</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 See which SERP features appear for each keyword
               </p>
             </CardHeader>
@@ -360,10 +360,10 @@ export default function RankingsPage() {
                 </div>
               </form>
               {serpResults.length > 0 && (
-                <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+                <div className="mt-4 overflow-x-auto rounded-lg border border-meridian-100">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                      <tr className="border-b border-meridian-100 bg-meridian-50">
                         <th className="px-4 py-3 text-left font-medium">Keyword</th>
                         <th className="px-4 py-3 text-left font-medium">Featured Snippet</th>
                         <th className="px-4 py-3 text-left font-medium">AI Overview</th>
@@ -375,7 +375,7 @@ export default function RankingsPage() {
                     </thead>
                     <tbody>
                       {serpResults.map((row: any, i) => (
-                        <tr key={i} className="border-b border-border last:border-0">
+                        <tr key={i} className="border-b border-meridian-100 last:border-0">
                           <td className="px-4 py-2 font-medium">{row.keyword ?? row.key}</td>
                           {["featuredSnippet", "aiOverview", "paa", "images", "video", "local"].map(
                             (col) => (
@@ -383,7 +383,7 @@ export default function RankingsPage() {
                                 {row[col] === true ? (
                                   <span className="text-rank-up">✓</span>
                                 ) : row[col] === false ? (
-                                  <span className="text-muted-foreground">✗</span>
+                                  <span className="text-ink-2">✗</span>
                                 ) : (
                                   "—"
                                 )}
@@ -404,7 +404,7 @@ export default function RankingsPage() {
           <Card>
             <CardHeader>
               <CardTitle>SERP Snapshot</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Full SERP snapshot for a keyword (organic results, snippets, PAA, etc.)
               </p>
             </CardHeader>
@@ -426,7 +426,7 @@ export default function RankingsPage() {
                 </div>
               </form>
               {snapshotResult && (
-                <div className="mt-4 max-h-[500px] overflow-auto rounded-lg border border-border bg-muted/20 p-4">
+                <div className="mt-4 max-h-[500px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">
                     {typeof snapshotResult === "string"
                       ? snapshotResult

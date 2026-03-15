@@ -58,12 +58,12 @@ export default function DomainPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Domain</h1>
-        <p className="text-muted-foreground">Site structure, sitemap, and domain analysis</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Domain</h1>
+        <p className="text-ink-2">Site structure, sitemap, and domain analysis</p>
       </div>
 
       <Tabs defaultValue="map" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="map" className="gap-2">
             <Map className="h-4 w-4" /> Site Map
           </TabsTrigger>
@@ -79,7 +79,7 @@ export default function DomainPage() {
           <Card>
             <CardHeader>
               <CardTitle>Site Structure Map</CardTitle>
-              <p className="text-sm text-muted-foreground">Map site structure and links</p>
+              <p className="text-sm text-ink-2">Map site structure and links</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleMap} className="flex gap-4">
@@ -92,7 +92,7 @@ export default function DomainPage() {
                 </div>
               </form>
               {mapResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof mapResult === "string" ? mapResult : JSON.stringify(mapResult, null, 2)}
                 </pre>
               )}
@@ -104,7 +104,7 @@ export default function DomainPage() {
           <Card>
             <CardHeader>
               <CardTitle>Sitemap Generation</CardTitle>
-              <p className="text-sm text-muted-foreground">Generate XML sitemap for your domain</p>
+              <p className="text-sm text-ink-2">Generate XML sitemap for your domain</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleSitemap} className="flex gap-4">
@@ -117,7 +117,7 @@ export default function DomainPage() {
                 </div>
               </form>
               {sitemapResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof sitemapResult === "string" ? sitemapResult : JSON.stringify(sitemapResult, null, 2)}
                 </pre>
               )}
@@ -129,7 +129,7 @@ export default function DomainPage() {
           <Card>
             <CardHeader>
               <CardTitle>Domain Structure Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Analyze domain structure and hierarchy</p>
+              <p className="text-sm text-ink-2">Analyze domain structure and hierarchy</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleStructure} className="flex gap-4">
@@ -142,7 +142,7 @@ export default function DomainPage() {
                 </div>
               </form>
               {structureResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof structureResult === "string" ? structureResult : JSON.stringify(structureResult, null, 2)}
                 </pre>
               )}

@@ -46,12 +46,12 @@ export default function BrandPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Brand</h1>
-        <p className="text-muted-foreground">Brand mentions and image search</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Brand</h1>
+        <p className="text-ink-2">Brand mentions and image search</p>
       </div>
 
       <Tabs defaultValue="mentions" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="mentions" className="gap-2">
             <MessageSquare className="h-4 w-4" /> Mentions
           </TabsTrigger>
@@ -64,7 +64,7 @@ export default function BrandPage() {
           <Card>
             <CardHeader>
               <CardTitle>Brand Mentions</CardTitle>
-              <p className="text-sm text-muted-foreground">Find where your brand is mentioned online</p>
+              <p className="text-sm text-ink-2">Find where your brand is mentioned online</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleMentions} className="flex gap-4">
@@ -77,7 +77,7 @@ export default function BrandPage() {
                 </div>
               </form>
               {mentionsResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">
                     {typeof mentionsResult === "string" ? mentionsResult : JSON.stringify(mentionsResult, null, 2)}
                   </pre>
@@ -91,7 +91,7 @@ export default function BrandPage() {
           <Card>
             <CardHeader>
               <CardTitle>Brand Image Search</CardTitle>
-              <p className="text-sm text-muted-foreground">Search for brand-related images</p>
+              <p className="text-sm text-ink-2">Search for brand-related images</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleImages} className="flex gap-4">
@@ -104,7 +104,7 @@ export default function BrandPage() {
                 </div>
               </form>
               {imagesResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">
                     {typeof imagesResult === "string" ? imagesResult : JSON.stringify(imagesResult, null, 2)}
                   </pre>

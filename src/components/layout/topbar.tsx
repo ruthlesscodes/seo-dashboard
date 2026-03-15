@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { Globe } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -32,11 +32,12 @@ export function TopBar({
     .slice(0, 2) ?? user?.email?.[0]?.toUpperCase() ?? "?";
 
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-card px-4">
+    <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-meridian-100 bg-white px-4">
       <div className="flex items-center gap-4">
         {domain && (
-          <div className="flex items-center gap-2 rounded-[6px] border border-border bg-background px-3 py-1.5">
-            <span className="text-sm font-mono tabular-nums text-muted-foreground">{domain}</span>
+          <div className="flex items-center gap-2 rounded-full border border-meridian-100 bg-canvas px-3 py-1.5">
+            <Globe className="h-4 w-4 text-ink-3" />
+            <span className="text-sm font-medium text-ink-2">{domain}</span>
           </div>
         )}
       </div>
@@ -44,48 +45,30 @@ export function TopBar({
         <CreditUsage variant="pill" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              className="flex items-center gap-2 rounded-full outline-none ring-primary focus:ring-2"
-            >
+            <button type="button" className="flex items-center gap-2 rounded-full outline-none ring-meridian-600 focus:ring-2">
               <Avatar className="h-8 w-8">
-                <AvatarFallback
-                  className={cn(
-                    "bg-primary/20 text-sm font-medium text-primary"
-                  )}
-                >
+                <AvatarFallback className="bg-meridian-50 text-sm font-semibold text-meridian-600">
                   {initials}
                 </AvatarFallback>
               </Avatar>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuPortal>
-          <DropdownMenuContent
-            align="end"
-            className="min-w-48 animate-scale-in rounded-[6px] border border-border bg-popover p-1 shadow-lg"
-          >
-            <DropdownMenuLabel className="px-2 py-1.5 text-sm font-normal">
-              <div className="flex flex-col">
-                {user?.name && <span>{user.name}</span>}
-                {user?.email && (
-                  <span className="text-xs text-muted-foreground">{user.email}</span>
-                )}
-              </div>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator className="my-1 h-px bg-border"             />
-            <DropdownMenuItem
-              className="cursor-pointer rounded-md px-2 py-1.5 text-sm outline-none focus:bg-accent"
-              onSelect={() => router.push("/dashboard/settings")}
-            >
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer rounded-md px-2 py-1.5 text-sm outline-none focus:bg-accent"
-              onSelect={() => signOut({ callbackUrl: "/auth/login" })}
-            >
-              Sign out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+            <DropdownMenuContent align="end" className="min-w-48 animate-scale-in rounded-lg border border-meridian-100 bg-white p-1 shadow-lg">
+              <DropdownMenuLabel className="px-2 py-1.5 text-sm font-normal text-ink">
+                <div className="flex flex-col">
+                  {user?.name && <span className="font-semibold">{user.name}</span>}
+                  {user?.email && <span className="text-xs text-ink-3">{user.email}</span>}
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="my-1 h-px bg-meridian-100" />
+              <DropdownMenuItem className="cursor-pointer rounded-lg px-2 py-1.5 text-sm text-ink-2 outline-none hover:bg-canvas hover:text-ink" onSelect={() => router.push("/dashboard/settings")}>
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer rounded-lg px-2 py-1.5 text-sm text-ink-2 outline-none hover:bg-canvas hover:text-ink" onSelect={() => signOut({ callbackUrl: "/auth/login" })}>
+                Sign out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
           </DropdownMenuPortal>
         </DropdownMenu>
       </div>

@@ -114,13 +114,13 @@ export default function ContentPage() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Content Studio</h1>
-        <p className="text-muted-foreground">
+        <p className="text-ink-2">
           Generate articles, briefs, and refresh existing content
         </p>
       </div>
 
       <Tabs defaultValue="generate" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="generate" className="gap-2">
             <FileText className="h-4 w-4" /> Generate
           </TabsTrigger>
@@ -139,7 +139,7 @@ export default function ContentPage() {
           <Card>
             <CardHeader>
               <CardTitle>Generate Article</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Enter a keyword to generate SEO-optimized content
               </p>
             </CardHeader>
@@ -161,14 +161,14 @@ export default function ContentPage() {
                 </div>
               </form>
               {genResult && (
-                <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-sm">
                     {typeof genResult === "string"
                       ? genResult
                       : genResult.content ?? genResult.markdown ?? JSON.stringify(genResult, null, 2)}
                   </pre>
                   {(genResult.wordCount ?? genResult.word_count) && (
-                    <p className="mt-2 text-xs text-muted-foreground">
+                    <p className="mt-2 text-xs text-ink-2">
                       {genResult.wordCount ?? genResult.word_count} words
                     </p>
                   )}
@@ -182,7 +182,7 @@ export default function ContentPage() {
           <Card>
             <CardHeader>
               <CardTitle>Content Brief</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Get a structured brief with outline and keywords
               </p>
             </CardHeader>
@@ -204,7 +204,7 @@ export default function ContentPage() {
                 </div>
               </form>
               {briefResult && (
-                <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-sm">{briefResult}</pre>
                 </div>
               )}
@@ -216,7 +216,7 @@ export default function ContentPage() {
           <Card>
             <CardHeader>
               <CardTitle>Refresh Content</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Analyze existing content vs current SERP
               </p>
             </CardHeader>
@@ -247,7 +247,7 @@ export default function ContentPage() {
                 </div>
               </form>
               {refreshResult && (
-                <div className="mt-4 space-y-2 rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 space-y-2 rounded-lg border border-meridian-100 bg-canvas p-4">
                   {(refreshResult.score ?? refreshResult.issues) && (
                     <>
                       {refreshResult.score != null && (
@@ -277,7 +277,7 @@ export default function ContentPage() {
           <Card>
             <CardHeader>
               <CardTitle>Trending Topics</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Discover trending topics and content ideas
               </p>
             </CardHeader>
@@ -299,7 +299,7 @@ export default function ContentPage() {
                 </div>
               </form>
               {trendingResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-sm">
                     {Array.isArray(trendingResult)
                       ? trendingResult.map((t: any) => t.title ?? t.name ?? t).join("\n")

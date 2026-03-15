@@ -15,16 +15,16 @@ import { Badge } from "@/components/ui/badge";
 // ─── Helpers ──────────────────────────────────────────────
 
 function scoreColor(score: number) {
-  if (score >= 90) return "text-green-500";
-  if (score >= 50) return "text-amber-500";
-  return "text-destructive";
+  if (score >= 90) return "text-success";
+  if (score >= 50) return "text-warning";
+  return "text-danger";
 }
 
 function ScoreBox({ label, score }: { label: string; score: number }) {
   return (
-    <div className="flex flex-col items-center gap-1 rounded-[6px] border border-border bg-muted/30 px-4 py-3">
+    <div className="flex flex-col items-center gap-1 rounded-lg border border-meridian-100 bg-canvas px-4 py-3">
       <span className={`text-2xl font-bold ${scoreColor(score)}`}>{score}</span>
-      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-xs text-ink-2">{label}</span>
     </div>
   );
 }
@@ -32,8 +32,8 @@ function ScoreBox({ label, score }: { label: string; score: number }) {
 function CwvRow({ label, value, unit }: { label: string; value: number | null; unit: string }) {
   if (value == null) return null;
   return (
-    <div className="flex justify-between rounded-[6px] border border-border px-3 py-2 text-sm">
-      <span className="text-muted-foreground">{label}</span>
+    <div className="flex justify-between rounded-lg border border-meridian-100 px-3 py-2 text-sm">
+      <span className="text-ink-2">{label}</span>
       <span className="font-mono font-medium">{Math.round(value)}{unit}</span>
     </div>
   );
@@ -192,12 +192,12 @@ export default function AuditPage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Audit</h1>
-        <p className="text-muted-foreground">Technical SEO, Core Web Vitals, and AI-powered audits</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Audit</h1>
+        <p className="text-ink-2">Technical SEO, Core Web Vitals, and AI-powered audits</p>
       </div>
 
       <Tabs defaultValue="technical" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="technical" className="gap-2">
             <ShieldCheck className="h-4 w-4" /> Technical
           </TabsTrigger>
@@ -225,7 +225,7 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Technical SEO Audit</CardTitle>
-              <p className="text-sm text-muted-foreground">Crawl a URL or full domain for on-page issues</p>
+              <p className="text-sm text-ink-2">Crawl a URL or full domain for on-page issues</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-4">
@@ -267,9 +267,9 @@ export default function AuditPage() {
                     <ScoreRing score={technicalResult.score} />
                     {technicalResult.summary && (
                       <div className="flex gap-4">
-                        <div><p className="text-2xl font-bold text-destructive">{technicalResult.summary.critical ?? 0}</p><p className="text-xs text-muted-foreground">Critical</p></div>
-                        <div><p className="text-2xl font-bold text-amber-500">{technicalResult.summary.warnings ?? 0}</p><p className="text-xs text-muted-foreground">Warnings</p></div>
-                        <div><p className="text-2xl font-bold text-blue-500">{technicalResult.summary.info ?? 0}</p><p className="text-xs text-muted-foreground">Info</p></div>
+                        <div><p className="text-2xl font-bold text-danger">{technicalResult.summary.critical ?? 0}</p><p className="text-xs text-ink-2">Critical</p></div>
+                        <div><p className="text-2xl font-bold text-warning">{technicalResult.summary.warnings ?? 0}</p><p className="text-xs text-ink-2">Warnings</p></div>
+                        <div><p className="text-2xl font-bold text-meridian-600">{technicalResult.summary.info ?? 0}</p><p className="text-xs text-ink-2">Info</p></div>
                       </div>
                     )}
                   </div>
@@ -277,15 +277,15 @@ export default function AuditPage() {
                     <div className="space-y-2">
                       <h3 className="font-medium">Issues</h3>
                       {technicalResult.issues.map((issue: any, i: number) => (
-                        <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+                        <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
                           <div className="flex items-center gap-2">
                             <Badge variant={issue.severity === "critical" ? "destructive" : issue.severity === "warning" ? "medium" : "outline"}>
                               {issue.severity ?? issue.type}
                             </Badge>
                             <span className="font-medium">{issue.type ?? issue.title ?? "Issue"}</span>
                           </div>
-                          {issue.description && <p className="mt-2 text-sm text-muted-foreground">{issue.description}</p>}
-                          {issue.recommendation && <p className="mt-1 text-sm text-primary">{issue.recommendation}</p>}
+                          {issue.description && <p className="mt-2 text-sm text-ink-2">{issue.description}</p>}
+                          {issue.recommendation && <p className="mt-1 text-sm text-meridian-600">{issue.recommendation}</p>}
                         </div>
                       ))}
                     </div>
@@ -300,7 +300,7 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Lighthouse / Core Web Vitals</CardTitle>
-              <p className="text-sm text-muted-foreground">Performance, SEO, Accessibility scores via Google PageSpeed Insights</p>
+              <p className="text-sm text-ink-2">Performance, SEO, Accessibility scores via Google PageSpeed Insights</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleLighthouse} className="flex flex-wrap gap-4">
@@ -311,7 +311,7 @@ export default function AuditPage() {
                 <div className="w-36 space-y-2">
                   <Label>Strategy</Label>
                   <select
-                    className="flex h-10 w-full rounded-[6px] border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm"
                     value={lighthouseMobile ? "mobile" : "desktop"}
                     onChange={(e) => setLighthouseMobile(e.target.value === "mobile")}
                     disabled={!!loading}
@@ -345,8 +345,8 @@ export default function AuditPage() {
                         <CwvRow label="TBT – Total Blocking Time" value={lighthouseResult.cwv.tbt} unit="ms" />
                         <CwvRow label="TTFB – Time to First Byte" value={lighthouseResult.cwv.ttfb} unit="ms" />
                         {lighthouseResult.cwv.cls != null && (
-                          <div className="flex justify-between rounded-[6px] border border-border px-3 py-2 text-sm">
-                            <span className="text-muted-foreground">CLS – Cumulative Layout Shift</span>
+                          <div className="flex justify-between rounded-lg border border-meridian-100 px-3 py-2 text-sm">
+                            <span className="text-ink-2">CLS – Cumulative Layout Shift</span>
                             <span className="font-mono font-medium">{lighthouseResult.cwv.cls?.toFixed(3)}</span>
                           </div>
                         )}
@@ -355,9 +355,9 @@ export default function AuditPage() {
                   )}
 
                   {lighthouseResult.fieldData?.overallCategory && (
-                    <div className="rounded-[6px] border border-border bg-muted/30 p-3">
+                    <div className="rounded-lg border border-meridian-100 bg-canvas p-3">
                       <p className="text-sm font-medium">Real User Data (Chrome UX Report)</p>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-1 text-sm text-ink-2">
                         Overall: <span className="font-medium capitalize">{lighthouseResult.fieldData.overallCategory.toLowerCase().replace(/_/g, " ")}</span>
                       </p>
                     </div>
@@ -368,14 +368,14 @@ export default function AuditPage() {
                       <h3 className="mb-2 font-medium">SEO Issues ({lighthouseResult.seoIssues.length})</h3>
                       <div className="space-y-2">
                         {lighthouseResult.seoIssues.map((issue: any, i: number) => (
-                          <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+                          <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
                             <div className="flex items-center gap-2">
                               <Badge variant={issue.severity === "critical" ? "destructive" : "medium"}>
                                 {issue.severity}
                               </Badge>
                               <span className="text-sm font-medium">{issue.title}</span>
                             </div>
-                            {issue.displayValue && <p className="mt-1 text-xs text-muted-foreground">{issue.displayValue}</p>}
+                            {issue.displayValue && <p className="mt-1 text-xs text-ink-2">{issue.displayValue}</p>}
                           </div>
                         ))}
                       </div>
@@ -387,9 +387,9 @@ export default function AuditPage() {
                       <h3 className="mb-2 font-medium">Performance Opportunities</h3>
                       <div className="space-y-2">
                         {lighthouseResult.opportunities.map((opp: any, i: number) => (
-                          <div key={i} className="flex items-center justify-between rounded-[6px] border border-border bg-muted/30 px-3 py-2">
+                          <div key={i} className="flex items-center justify-between rounded-lg border border-meridian-100 bg-canvas px-3 py-2">
                             <span className="text-sm">{opp.title}</span>
-                            <span className="font-mono text-xs text-amber-500">−{opp.savingsMs ?? opp.savings ?? "?"}ms</span>
+                            <span className="font-mono text-xs text-warning">−{opp.savingsMs ?? opp.savings ?? "?"}ms</span>
                           </div>
                         ))}
                       </div>
@@ -405,7 +405,7 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>AI Agent Audit</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 DeerFlow multi-agent analysis — Technical, Lighthouse, Search Console, Competitors, and prioritised recommendations in one pass
               </p>
             </CardHeader>
@@ -422,16 +422,16 @@ export default function AuditPage() {
                 </div>
               </form>
               {loading === "agent" && (
-                <div className="animate-pulse rounded-[6px] border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+                <div className="animate-pulse rounded-lg border border-meridian-100 bg-canvas p-4 text-sm text-ink-2">
                   Running 5 agents in parallel… this takes 30–90 seconds.
                 </div>
               )}
               {agentResult && (
                 <div className="mt-4 space-y-4">
                   {agentResult.summary && (
-                    <div className="rounded-[6px] border border-border bg-muted/30 p-4">
+                    <div className="rounded-lg border border-meridian-100 bg-canvas p-4">
                       <h3 className="mb-2 font-medium">Summary</h3>
-                      <p className="text-sm text-muted-foreground">{agentResult.summary}</p>
+                      <p className="text-sm text-ink-2">{agentResult.summary}</p>
                     </div>
                   )}
                   {agentResult.recommendations?.length > 0 && (
@@ -439,21 +439,21 @@ export default function AuditPage() {
                       <h3 className="mb-2 font-medium">Prioritised Recommendations</h3>
                       <div className="space-y-2">
                         {agentResult.recommendations.map((rec: any, i: number) => (
-                          <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+                          <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
                             <div className="flex items-center gap-2">
                               <Badge variant={rec.priority === "critical" ? "destructive" : rec.priority === "high" ? "medium" : "outline"}>
                                 {rec.priority ?? "medium"}
                               </Badge>
                               <span className="text-sm font-medium">{rec.title ?? rec.action}</span>
                             </div>
-                            {rec.description && <p className="mt-1 text-sm text-muted-foreground">{rec.description}</p>}
+                            {rec.description && <p className="mt-1 text-sm text-ink-2">{rec.description}</p>}
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
                   {!agentResult.summary && !agentResult.recommendations && (
-                    <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+                    <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
                       {JSON.stringify(agentResult, null, 2)}
                     </pre>
                   )}
@@ -467,14 +467,14 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Batch Audit</CardTitle>
-              <p className="text-sm text-muted-foreground">Audit multiple URLs in parallel (one per line)</p>
+              <p className="text-sm text-ink-2">Audit multiple URLs in parallel (one per line)</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBatchAudit} className="space-y-4">
                 <div className="space-y-2">
                   <Label>URLs (one per line)</Label>
                   <textarea
-                    className="flex min-h-[120px] w-full rounded-[6px] border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex min-h-[120px] w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-ink-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     placeholder={"https://example.com/page-1\nhttps://example.com/page-2\nhttps://example.com/page-3"}
                     value={batchUrls}
                     onChange={(e) => setBatchUrls(e.target.value)}
@@ -486,7 +486,7 @@ export default function AuditPage() {
                 </Button>
               </form>
               {batchResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">
                     {typeof batchResult === "string" ? batchResult : JSON.stringify(batchResult, null, 2)}
                   </pre>
@@ -500,7 +500,7 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Internal Links Audit</CardTitle>
-              <p className="text-sm text-muted-foreground">Find orphaned pages, hub pages, and internal linking issues</p>
+              <p className="text-sm text-ink-2">Find orphaned pages, hub pages, and internal linking issues</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleInternalLinks} className="flex gap-4">
@@ -519,21 +519,21 @@ export default function AuditPage() {
                   {(internalLinksResult.totalPages != null || internalLinksResult.orphaned) && (
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {internalLinksResult.totalPages != null && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                           <p className="text-xl font-bold">{internalLinksResult.totalPages}</p>
-                          <p className="text-xs text-muted-foreground">Total Pages</p>
+                          <p className="text-xs text-ink-2">Total Pages</p>
                         </div>
                       )}
                       {internalLinksResult.orphaned && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
-                          <p className="text-xl font-bold text-amber-500">{internalLinksResult.orphaned.length}</p>
-                          <p className="text-xs text-muted-foreground">Orphaned Pages</p>
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
+                          <p className="text-xl font-bold text-warning">{internalLinksResult.orphaned.length}</p>
+                          <p className="text-xs text-ink-2">Orphaned Pages</p>
                         </div>
                       )}
                       {internalLinksResult.hubPages != null && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
-                          <p className="text-xl font-bold text-green-500">{internalLinksResult.hubPages}</p>
-                          <p className="text-xs text-muted-foreground">Hub Pages</p>
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
+                          <p className="text-xl font-bold text-success">{internalLinksResult.hubPages}</p>
+                          <p className="text-xs text-ink-2">Hub Pages</p>
                         </div>
                       )}
                     </div>
@@ -541,15 +541,15 @@ export default function AuditPage() {
                   {internalLinksResult.orphaned?.length > 0 && (
                     <div>
                       <h3 className="mb-2 font-medium">Orphaned Pages</h3>
-                      <ul className="max-h-[200px] overflow-auto space-y-1 rounded-[6px] border border-border bg-muted/30 p-3">
+                      <ul className="max-h-[200px] overflow-auto space-y-1 rounded-lg border border-meridian-100 bg-canvas p-3">
                         {internalLinksResult.orphaned.map((url: string, i: number) => (
-                          <li key={i} className="truncate font-mono text-xs text-muted-foreground">{url}</li>
+                          <li key={i} className="truncate font-mono text-xs text-ink-2">{url}</li>
                         ))}
                       </ul>
                     </div>
                   )}
                   {internalLinksResult.analysis && (
-                    <div className="max-h-[300px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                    <div className="max-h-[300px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                       <pre className="whitespace-pre-wrap text-xs">
                         {typeof internalLinksResult.analysis === "string" ? internalLinksResult.analysis : JSON.stringify(internalLinksResult.analysis, null, 2)}
                       </pre>
@@ -565,7 +565,7 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Page Screenshot</CardTitle>
-              <p className="text-sm text-muted-foreground">Capture a full-page screenshot of any URL</p>
+              <p className="text-sm text-ink-2">Capture a full-page screenshot of any URL</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleScreenshot} className="flex gap-4">
@@ -582,7 +582,7 @@ export default function AuditPage() {
               {screenshotResult && (
                 <div className="mt-4">
                   {(screenshotResult.screenshot || screenshotResult.base64) ? (
-                    <div className="overflow-auto rounded-[6px] border border-border">
+                    <div className="overflow-auto rounded-lg border border-meridian-100">
                       <img
                         src={screenshotResult.screenshot || `data:image/png;base64,${screenshotResult.base64}`}
                         alt="Page screenshot"
@@ -590,7 +590,7 @@ export default function AuditPage() {
                       />
                     </div>
                   ) : (
-                    <div className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                    <div className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                       <pre className="whitespace-pre-wrap text-xs">
                         {JSON.stringify(screenshotResult, null, 2)}
                       </pre>
@@ -606,18 +606,18 @@ export default function AuditPage() {
           <Card>
             <CardHeader>
               <CardTitle>Audit History</CardTitle>
-              <p className="text-sm text-muted-foreground">Past audits for your organisation</p>
+              <p className="text-sm text-ink-2">Past audits for your organisation</p>
             </CardHeader>
             <CardContent>
               {!historyLoaded ? (
-                <p className="text-sm text-muted-foreground">Loading…</p>
+                <p className="text-sm text-ink-2">Loading…</p>
               ) : history.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No audits yet. Run one above.</p>
+                <p className="text-sm text-ink-2">No audits yet. Run one above.</p>
               ) : (
-                <div className="overflow-x-auto rounded-[6px] border border-border">
+                <div className="overflow-x-auto rounded-lg border border-meridian-100">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                      <tr className="border-b border-meridian-100 bg-meridian-50">
                         <th className="px-4 py-3 text-left font-medium">Type</th>
                         <th className="px-4 py-3 text-left font-medium">Target</th>
                         <th className="px-4 py-3 text-left font-medium">Score</th>
@@ -627,12 +627,12 @@ export default function AuditPage() {
                     </thead>
                     <tbody>
                       {history.map((row: any, i) => (
-                        <tr key={i} className="border-b border-border last:border-0">
+                        <tr key={i} className="border-b border-meridian-100 last:border-0">
                           <td className="px-4 py-2 capitalize">{row.type ?? "technical"}</td>
-                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-muted-foreground">{row.domain ?? row.url ?? "—"}</td>
+                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-ink-2">{row.domain ?? row.url ?? "—"}</td>
                           <td className="px-4 py-2 font-mono">{row.score ?? row.summary?.score ?? "—"}</td>
                           <td className="px-4 py-2">{row.issuesFound != null ? row.issuesFound : row.summary ? (row.summary.critical ?? 0) + (row.summary.warnings ?? 0) : "—"}</td>
-                          <td className="px-4 py-2 text-muted-foreground">{row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "—"}</td>
+                          <td className="px-4 py-2 text-ink-2">{row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "—"}</td>
                         </tr>
                       ))}
                     </tbody>

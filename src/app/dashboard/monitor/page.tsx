@@ -121,13 +121,13 @@ export default function MonitorPage() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Monitor</h1>
-        <p className="text-muted-foreground">
+        <p className="text-ink-2">
           Watch URLs and track changes over time
         </p>
       </div>
 
       <Tabs defaultValue="watch" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="watch" className="gap-2">
             <Eye className="h-4 w-4" /> Watch List
           </TabsTrigger>
@@ -149,7 +149,7 @@ export default function MonitorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Watched URLs</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Add URLs to monitor for changes
               </p>
             </CardHeader>
@@ -201,7 +201,7 @@ export default function MonitorPage() {
                 </div>
               </form>
               {watchedUrls.length === 0 && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-ink-2">
                   No URLs watched yet. Add one above.
                 </p>
               )}
@@ -213,13 +213,13 @@ export default function MonitorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Changes Feed</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Detected changes across monitored URLs
               </p>
             </CardHeader>
             <CardContent>
               {changes.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-ink-2">
                   No changes detected yet. Add URLs and run a check.
                 </p>
               ) : (
@@ -230,7 +230,7 @@ export default function MonitorPage() {
                     return (
                       <div
                         key={id}
-                        className="rounded-lg border border-border bg-card"
+                        className="rounded-lg border border-meridian-100 bg-white"
                       >
                         <button
                           type="button"
@@ -250,15 +250,15 @@ export default function MonitorPage() {
                           <Badge variant="outline">
                             {c.changeType ?? c.changeStatus ?? "changed"}
                           </Badge>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-xs text-ink-2">
                             {c.detectedAt
                               ? new Date(c.detectedAt).toLocaleDateString()
                               : ""}
                           </span>
                         </button>
                         {isExpanded && (
-                          <div className="border-t border-border px-4 py-3">
-                            <p className="mb-2 text-xs text-muted-foreground">
+                          <div className="border-t border-meridian-100 px-4 py-3">
+                            <p className="mb-2 text-xs text-ink-2">
                               Change type: {c.changeType ?? c.changeStatus ?? "—"}
                             </p>
                             <DiffViewer diff={c.diff ?? null} />
@@ -277,7 +277,7 @@ export default function MonitorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Content Diff</CardTitle>
-              <p className="text-sm text-muted-foreground">Compare current content with last snapshot</p>
+              <p className="text-sm text-ink-2">Compare current content with last snapshot</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleDiff} className="flex gap-4">
@@ -302,7 +302,7 @@ export default function MonitorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Pricing Change Detection</CardTitle>
-              <p className="text-sm text-muted-foreground">Detect pricing changes on a monitored page</p>
+              <p className="text-sm text-ink-2">Detect pricing changes on a monitored page</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handlePricing} className="flex gap-4">
@@ -315,7 +315,7 @@ export default function MonitorPage() {
                 </div>
               </form>
               {pricingResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof pricingResult === "string" ? pricingResult : JSON.stringify(pricingResult, null, 2)}
                 </pre>
               )}
@@ -327,7 +327,7 @@ export default function MonitorPage() {
           <Card>
             <CardHeader>
               <CardTitle>Decay / Decline Detection</CardTitle>
-              <p className="text-sm text-muted-foreground">Detect ranking or visibility decay for a domain</p>
+              <p className="text-sm text-ink-2">Detect ranking or visibility decay for a domain</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleDecay} className="flex gap-4">
@@ -340,7 +340,7 @@ export default function MonitorPage() {
                 </div>
               </form>
               {decayResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof decayResult === "string" ? decayResult : JSON.stringify(decayResult, null, 2)}
                 </pre>
               )}

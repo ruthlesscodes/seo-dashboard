@@ -130,14 +130,14 @@ export default function GeoPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">GEO / AEO</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">GEO / AEO</h1>
+        <p className="text-ink-2">
           Generative Engine Optimization and llms.txt
         </p>
       </div>
 
       <Tabs defaultValue="readability" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="readability" className="gap-2">
             <BookOpen className="h-4 w-4" /> Readability {!canUseReadability && "(GROWTH+)"}
           </TabsTrigger>
@@ -158,7 +158,7 @@ export default function GeoPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">Readability Score</p>
+                  <p className="text-sm text-ink-2">Readability Score</p>
                   <Button className="mt-2" asChild>
                     <a href="/dashboard/billing">Upgrade</a>
                   </Button>
@@ -167,7 +167,7 @@ export default function GeoPage() {
             )}
             <CardHeader>
               <CardTitle>Readability Score</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Analyze content clarity for AI/LLM consumption
               </p>
             </CardHeader>
@@ -203,7 +203,7 @@ export default function GeoPage() {
                         ([k, v]) => (
                           <div
                             key={k}
-                            className="flex justify-between rounded-md border border-border px-3 py-2"
+                            className="flex justify-between rounded-md border border-meridian-100 px-3 py-2"
                           >
                             <span className="text-sm">{k}</span>
                             <span className="font-mono text-sm">{String(v)}</span>
@@ -231,7 +231,7 @@ export default function GeoPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">llms.txt Generator</p>
+                  <p className="text-sm text-ink-2">llms.txt Generator</p>
                   <Button className="mt-2" asChild>
                     <a href="/dashboard/billing">Upgrade</a>
                   </Button>
@@ -240,7 +240,7 @@ export default function GeoPage() {
             )}
             <CardHeader>
               <CardTitle>llms.txt Generator</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Generate llms.txt and llms-full.txt for your domain. Add to your site root at /llms.txt
               </p>
             </CardHeader>
@@ -266,7 +266,7 @@ export default function GeoPage() {
               </form>
               {llmstxtResult && (
                 <div className="mt-4 space-y-2">
-                  <pre className="max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 font-mono text-xs">
+                  <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 font-mono text-xs">
                     {llmstxtResult}
                   </pre>
                   <div className="flex gap-2">
@@ -293,14 +293,14 @@ export default function GeoPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">Brand monitoring</p>
+                  <p className="text-sm text-ink-2">Brand monitoring</p>
                   <Button className="mt-2" asChild><a href="/dashboard/billing">Upgrade</a></Button>
                 </div>
               </div>
             )}
             <CardHeader>
               <CardTitle>Brand Monitor</CardTitle>
-              <p className="text-sm text-muted-foreground">Track brand presence across search and AI engines</p>
+              <p className="text-sm text-ink-2">Track brand presence across search and AI engines</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBrandMonitor} className="flex flex-wrap gap-4">
@@ -317,7 +317,7 @@ export default function GeoPage() {
                 </div>
               </form>
               {brandResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">{typeof brandResult === "string" ? brandResult : JSON.stringify(brandResult, null, 2)}</pre>
                 </div>
               )}
@@ -331,14 +331,14 @@ export default function GeoPage() {
               <div className="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-background/80 backdrop-blur-sm">
                 <div className="text-center">
                   <p className="font-medium">Upgrade to GROWTH to unlock</p>
-                  <p className="text-sm text-muted-foreground">Citation optimization</p>
+                  <p className="text-sm text-ink-2">Citation optimization</p>
                   <Button className="mt-2" asChild><a href="/dashboard/billing">Upgrade</a></Button>
                 </div>
               </div>
             )}
             <CardHeader>
               <CardTitle>Citation Optimization</CardTitle>
-              <p className="text-sm text-muted-foreground">Optimize how AI and search engines cite your brand</p>
+              <p className="text-sm text-ink-2">Optimize how AI and search engines cite your brand</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleOptimize} className="flex flex-wrap gap-4">
@@ -359,7 +359,7 @@ export default function GeoPage() {
                 </div>
               </form>
               {optimizeResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">{typeof optimizeResult === "string" ? optimizeResult : JSON.stringify(optimizeResult, null, 2)}</pre>
                 </div>
               )}

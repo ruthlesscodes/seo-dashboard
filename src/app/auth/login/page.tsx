@@ -68,11 +68,11 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4 animate-fade-up">
-      <Card className="w-full max-w-md border-border">
+    <div className="flex min-h-screen items-center justify-center bg-canvas p-4 animate-fade-up">
+      <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="font-display text-2xl font-bold">Sign in</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl font-extrabold">Sign in</CardTitle>
+          <CardDescription className="text-ink-2">
             Enter your credentials or sign in with Google
           </CardDescription>
         </CardHeader>
@@ -105,10 +105,10 @@ function LoginForm() {
               <>
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t border-border" />
+                    <span className="w-full border-t border-meridian-100" />
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                    <span className="bg-white px-2 text-ink-3">Or continue with</span>
                   </div>
                 </div>
                 <Button
@@ -127,15 +127,11 @@ function LoginForm() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Signing in…" : "Sign in"}
             </Button>
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-center text-sm text-ink-3">
               Don&apos;t have an account?{" "}
-              <Link href="/auth/register" className="text-primary hover:underline">
-                Sign up
-              </Link>
+              <Link href="/auth/register" className="font-medium text-meridian-600 hover:underline">Sign up</Link>
               {" · "}
-              <Link href="/preview" className="text-primary hover:underline">
-                Preview dashboard
-              </Link>
+              <Link href="/preview" className="font-medium text-meridian-600 hover:underline">Preview dashboard</Link>
             </p>
           </CardFooter>
         </form>
@@ -146,7 +142,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-background">Loading…</div>}>
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-canvas text-ink">Loading…</div>}>
       <LoginForm />
     </Suspense>
   );

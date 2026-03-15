@@ -115,14 +115,14 @@ export default function KeywordsPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Keywords</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Keywords</h1>
+        <p className="text-ink-2">
           Search, cluster, and discover keyword opportunities
         </p>
       </div>
 
       <Tabs defaultValue="search" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="search" className="gap-2">
             <Search className="h-4 w-4" /> Search
           </TabsTrigger>
@@ -138,7 +138,7 @@ export default function KeywordsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Search Rankings</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Enter comma-separated keywords and domain to check positions
               </p>
             </CardHeader>
@@ -184,10 +184,10 @@ export default function KeywordsPage() {
                 </div>
               </form>
               {searchResults.length > 0 && (
-                <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+                <div className="mt-4 overflow-x-auto rounded-lg border border-meridian-100">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-border bg-muted/50">
+                      <tr className="border-b border-meridian-100 bg-meridian-50">
                         <th className="px-4 py-3 text-left font-medium">Keyword</th>
                         <th className="px-4 py-3 text-left font-medium">Position</th>
                         <th className="px-4 py-3 text-left font-medium">URL</th>
@@ -196,12 +196,12 @@ export default function KeywordsPage() {
                     </thead>
                     <tbody>
                       {searchResults.map((row: any, i) => (
-                        <tr key={i} className="border-b border-border last:border-0">
+                        <tr key={i} className="border-b border-meridian-100 last:border-0">
                           <td className="px-4 py-2 font-medium">{row.keyword ?? row.key}</td>
                           <td className="px-4 py-2 font-mono">
                             {row.position ?? row.rank ?? "—"}
                           </td>
-                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-muted-foreground">
+                          <td className="max-w-[200px] truncate px-4 py-2 font-mono text-ink-2">
                             {row.url ?? "—"}
                           </td>
                           <td className="px-4 py-2">
@@ -229,7 +229,7 @@ export default function KeywordsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Cluster by Intent</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Paste keywords (comma or newline) to group by search intent
               </p>
             </CardHeader>
@@ -254,13 +254,13 @@ export default function KeywordsPage() {
                   {clusterResults.map((cluster: any, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-border bg-card p-4"
+                      className="rounded-lg border border-meridian-100 bg-white p-4"
                     >
                       <Badge className="mb-2">
                         {cluster.intent ?? cluster.type ?? "Cluster"}
                       </Badge>
                       {cluster.suggestedPillarTopic && (
-                        <p className="mb-2 text-xs text-muted-foreground">
+                        <p className="mb-2 text-xs text-ink-2">
                           Pillar: {cluster.suggestedPillarTopic}
                         </p>
                       )}
@@ -273,7 +273,7 @@ export default function KeywordsPage() {
                           )
                         )}
                         {(cluster.keywords ?? cluster.terms ?? []).length > 5 && (
-                          <li className="text-muted-foreground">
+                          <li className="text-ink-2">
                             +{(cluster.keywords ?? cluster.terms).length - 5} more
                           </li>
                         )}
@@ -290,7 +290,7 @@ export default function KeywordsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Get Suggestions</CardTitle>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Enter a topic to discover related keyword opportunities
               </p>
             </CardHeader>
@@ -327,7 +327,7 @@ export default function KeywordsPage() {
                   {suggestResults.map((s: any, i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between rounded-lg border border-border bg-card p-3"
+                      className="flex items-center justify-between rounded-lg border border-meridian-100 bg-white p-3"
                     >
                       <span className="font-medium">{s.keyword ?? s.term ?? s}</span>
                       <div className="flex gap-1">

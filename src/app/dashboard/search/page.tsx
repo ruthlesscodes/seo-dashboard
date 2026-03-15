@@ -58,12 +58,12 @@ export default function SearchPage() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Search</h1>
-        <p className="text-muted-foreground">News, GitHub, and research search</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Search</h1>
+        <p className="text-ink-2">News, GitHub, and research search</p>
       </div>
 
       <Tabs defaultValue="news" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="news" className="gap-2">
             <Newspaper className="h-4 w-4" /> News
           </TabsTrigger>
@@ -79,7 +79,7 @@ export default function SearchPage() {
           <Card>
             <CardHeader>
               <CardTitle>News Search</CardTitle>
-              <p className="text-sm text-muted-foreground">Search news articles by query</p>
+              <p className="text-sm text-ink-2">Search news articles by query</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleNews} className="flex gap-4">
@@ -92,7 +92,7 @@ export default function SearchPage() {
                 </div>
               </form>
               {newsResult && (
-                <pre className="max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof newsResult === "string" ? newsResult : JSON.stringify(newsResult, null, 2)}
                 </pre>
               )}
@@ -104,7 +104,7 @@ export default function SearchPage() {
           <Card>
             <CardHeader>
               <CardTitle>GitHub Search</CardTitle>
-              <p className="text-sm text-muted-foreground">Search GitHub repositories</p>
+              <p className="text-sm text-ink-2">Search GitHub repositories</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleGithub} className="flex gap-4">
@@ -117,7 +117,7 @@ export default function SearchPage() {
                 </div>
               </form>
               {githubResult && (
-                <pre className="max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof githubResult === "string" ? githubResult : JSON.stringify(githubResult, null, 2)}
                 </pre>
               )}
@@ -129,7 +129,7 @@ export default function SearchPage() {
           <Card>
             <CardHeader>
               <CardTitle>Research Search</CardTitle>
-              <p className="text-sm text-muted-foreground">Deep research search</p>
+              <p className="text-sm text-ink-2">Deep research search</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleResearch} className="flex gap-4">
@@ -142,7 +142,7 @@ export default function SearchPage() {
                 </div>
               </form>
               {researchResult && (
-                <pre className="max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof researchResult === "string" ? researchResult : JSON.stringify(researchResult, null, 2)}
                 </pre>
               )}

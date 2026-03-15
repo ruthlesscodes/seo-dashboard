@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 
 export function DiffViewer({ diff }: { diff: string | null }) {
-  if (!diff) return <p className="text-sm text-muted-foreground">No diff available</p>;
+  if (!diff) return <p className="text-sm text-ink-2">No diff available</p>;
 
   const lines = diff.split("\n");
 

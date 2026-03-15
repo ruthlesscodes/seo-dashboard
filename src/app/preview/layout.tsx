@@ -15,7 +15,7 @@ export default function PreviewLayout({
   const mockDomain = "example.com";
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-canvas">
       <Sidebar plan="GROWTH" orgName={mockUser.name} basePath="/preview" />
       <div className="flex flex-1 flex-col overflow-hidden">
         <TopBar user={mockUser} domain={mockDomain} />

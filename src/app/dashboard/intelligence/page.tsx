@@ -116,19 +116,19 @@ export default function IntelligencePage() {
     const insights = data.insights ?? data.analysis ?? data.results ?? null;
     if (!insights) {
       return (
-        <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+        <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
           {JSON.stringify(data, null, 2)}
         </pre>
       );
     }
     if (typeof insights === "string") {
-      return <p className="whitespace-pre-wrap text-sm text-muted-foreground">{insights}</p>;
+      return <p className="whitespace-pre-wrap text-sm text-ink-2">{insights}</p>;
     }
     if (Array.isArray(insights)) {
       return (
         <div className="space-y-2">
           {insights.map((item: any, i: number) => (
-            <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+            <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
               <div className="mb-1 flex items-center gap-2">
                 {item.priority && (
                   <Badge variant={item.priority === "high" ? "destructive" : item.priority === "medium" ? "medium" : "outline"}>
@@ -137,7 +137,7 @@ export default function IntelligencePage() {
                 )}
                 <span className="text-sm font-medium">{item.title ?? item.topic ?? item.keyword ?? `Insight ${i + 1}`}</span>
               </div>
-              {item.description && <p className="text-sm text-muted-foreground">{item.description}</p>}
+              {item.description && <p className="text-sm text-ink-2">{item.description}</p>}
               {item.recommendation && <p className="mt-1 text-sm text-primary">{item.recommendation}</p>}
             </div>
           ))}
@@ -145,7 +145,7 @@ export default function IntelligencePage() {
       );
     }
     return (
-      <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+      <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
         {JSON.stringify(insights, null, 2)}
       </pre>
     );
@@ -154,12 +154,12 @@ export default function IntelligencePage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Intelligence</h1>
-        <p className="text-muted-foreground">Deep SEO analysis, content gaps, and strategic recommendations</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Intelligence</h1>
+        <p className="text-ink-2">Deep SEO analysis, content gaps, and strategic recommendations</p>
       </div>
 
       <Tabs defaultValue="analyze" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="analyze" className="gap-2">
             <Brain className="h-4 w-4" /> Domain Analysis
           </TabsTrigger>
@@ -181,7 +181,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Domain Intelligence</CardTitle>
-              <p className="text-sm text-muted-foreground">Full SEO signal analysis for your domain and target keywords</p>
+              <p className="text-sm text-ink-2">Full SEO signal analysis for your domain and target keywords</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleAnalyze} className="flex flex-wrap gap-4">
@@ -205,21 +205,21 @@ export default function IntelligencePage() {
                   {(analyzeResult.domainAuthority != null || analyzeResult.organicTraffic != null || analyzeResult.backlinks != null) && (
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {analyzeResult.domainAuthority != null && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                           <p className="text-xl font-bold">{analyzeResult.domainAuthority}</p>
-                          <p className="text-xs text-muted-foreground">Domain Authority</p>
+                          <p className="text-xs text-ink-2">Domain Authority</p>
                         </div>
                       )}
                       {analyzeResult.organicTraffic != null && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                           <p className="text-xl font-bold">{analyzeResult.organicTraffic.toLocaleString()}</p>
-                          <p className="text-xs text-muted-foreground">Est. Organic Traffic</p>
+                          <p className="text-xs text-ink-2">Est. Organic Traffic</p>
                         </div>
                       )}
                       {analyzeResult.backlinks != null && (
-                        <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                        <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                           <p className="text-xl font-bold">{analyzeResult.backlinks.toLocaleString()}</p>
-                          <p className="text-xs text-muted-foreground">Backlinks</p>
+                          <p className="text-xs text-ink-2">Backlinks</p>
                         </div>
                       )}
                     </div>
@@ -235,7 +235,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Content Gap Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Find keyword and content opportunities your competitor ranks for that you don&apos;t</p>
+              <p className="text-sm text-ink-2">Find keyword and content opportunities your competitor ranks for that you don&apos;t</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleGap} className="flex flex-wrap gap-4">
@@ -263,10 +263,10 @@ export default function IntelligencePage() {
                   {(gapResult.gaps ?? gapResult.keywords ?? []).length > 0 && (
                     <div>
                       <h3 className="mb-2 font-medium">Keyword Gaps</h3>
-                      <div className="overflow-x-auto rounded-[6px] border border-border">
+                      <div className="overflow-x-auto rounded-lg border border-meridian-100">
                         <table className="w-full text-sm">
                           <thead>
-                            <tr className="border-b border-border bg-muted/50">
+                            <tr className="border-b border-meridian-100 bg-meridian-50">
                               <th className="px-4 py-3 text-left font-medium">Keyword</th>
                               <th className="px-4 py-3 text-left font-medium">Competitor Rank</th>
                               <th className="px-4 py-3 text-left font-medium">Your Rank</th>
@@ -275,7 +275,7 @@ export default function IntelligencePage() {
                           </thead>
                           <tbody>
                             {(gapResult.gaps ?? gapResult.keywords).map((g: any, i: number) => (
-                              <tr key={i} className="border-b border-border last:border-0">
+                              <tr key={i} className="border-b border-meridian-100 last:border-0">
                                 <td className="px-4 py-2 font-medium">{g.keyword ?? g.term ?? g.key}</td>
                                 <td className="px-4 py-2 font-mono">{g.competitorRank ?? g.competitor ?? "—"}</td>
                                 <td className="px-4 py-2 font-mono">{g.yourRank ?? g.yours ?? "Not ranking"}</td>
@@ -295,7 +295,7 @@ export default function IntelligencePage() {
                   {gapResult.recommendations?.length > 0 && (
                     <div>
                       <h3 className="mb-2 font-medium">Recommendations</h3>
-                      <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                      <ul className="list-disc space-y-1 pl-5 text-sm text-ink-2">
                         {gapResult.recommendations.map((r: any, i: number) => (
                           <li key={i}>{typeof r === "string" ? r : r.description ?? r.text}</li>
                         ))}
@@ -304,7 +304,7 @@ export default function IntelligencePage() {
                   )}
 
                   {!gapResult.gaps && !gapResult.keywords && !gapResult.recommendations && (
-                    <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+                    <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
                       {JSON.stringify(gapResult, null, 2)}
                     </pre>
                   )}
@@ -318,7 +318,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>AI Agent Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Agent-based SEO analysis from a natural language prompt</p>
+              <p className="text-sm text-ink-2">Agent-based SEO analysis from a natural language prompt</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleAgent} className="space-y-4">
@@ -329,7 +329,7 @@ export default function IntelligencePage() {
                 <Button type="submit" disabled={!!loading}>{loading === "agent" ? "Analyzing…" : "Run Agent"}</Button>
               </form>
               {agentResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">{typeof agentResult === "string" ? agentResult : JSON.stringify(agentResult, null, 2)}</pre>
                 </div>
               )}
@@ -341,7 +341,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Research Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Deep research on a topic for content strategy</p>
+              <p className="text-sm text-ink-2">Deep research on a topic for content strategy</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleResearch} className="flex gap-4">
@@ -354,7 +354,7 @@ export default function IntelligencePage() {
                 </div>
               </form>
               {researchResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">{typeof researchResult === "string" ? researchResult : JSON.stringify(researchResult, null, 2)}</pre>
                 </div>
               )}
@@ -366,7 +366,7 @@ export default function IntelligencePage() {
           <Card>
             <CardHeader>
               <CardTitle>Batch Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Run batch research across multiple topics. For domain-specific analysis use the <strong>Domain Analysis</strong> tab, or <strong>Gap Analysis</strong> for competitor comparisons.</p>
+              <p className="text-sm text-ink-2">Run batch research across multiple topics. For domain-specific analysis use the <strong>Domain Analysis</strong> tab, or <strong>Gap Analysis</strong> for competitor comparisons.</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBatch} className="flex flex-wrap gap-4">
@@ -379,7 +379,7 @@ export default function IntelligencePage() {
                 </div>
               </form>
               {batchResult && (
-                <div className="mt-4 max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4">
+                <div className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4">
                   <pre className="whitespace-pre-wrap text-xs">{typeof batchResult === "string" ? batchResult : JSON.stringify(batchResult, null, 2)}</pre>
                 </div>
               )}

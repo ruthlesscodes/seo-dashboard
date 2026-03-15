@@ -21,10 +21,10 @@ const STATUS_ICON: Record<JobStatus, any> = {
 };
 
 const STATUS_COLOR: Record<JobStatus, string> = {
-  pending: "text-muted-foreground",
-  active: "animate-spin text-primary",
-  completed: "text-green-500",
-  failed: "text-destructive",
+  pending: "text-ink-2",
+  active: "animate-spin text-meridian-600",
+  completed: "text-success",
+  failed: "text-danger",
 };
 
 export default function PipelinePage() {
@@ -102,14 +102,14 @@ export default function PipelinePage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Pipeline</h1>
-        <p className="text-muted-foreground">Run the full SEO pipeline — audits, rankings, content, and recommendations in one job</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Pipeline</h1>
+        <p className="text-ink-2">Run the full SEO pipeline — audits, rankings, content, and recommendations in one job</p>
       </div>
 
       <Card>
         <CardHeader>
           <CardTitle>Run Full Pipeline</CardTitle>
-          <p className="text-sm text-muted-foreground">Kicks off a background job that runs all audit and ranking checks</p>
+          <p className="text-sm text-ink-2">Kicks off a background job that runs all audit and ranking checks</p>
         </CardHeader>
         <CardContent className="space-y-4">
           <form onSubmit={handleRun} className="flex flex-wrap gap-4">
@@ -142,34 +142,34 @@ export default function PipelinePage() {
           </CardHeader>
           <CardContent>
             {(jobStatus === "pending" || jobStatus === "active") && (
-              <p className="animate-pulse text-sm text-muted-foreground">Running pipeline… checking every 4s. Takes 1–3 minutes.</p>
+              <p className="animate-pulse text-sm text-ink-2">Running pipeline… checking every 4s. Takes 1–3 minutes.</p>
             )}
             {jobStatus === "completed" && jobData && (
               <div className="space-y-4">
                 {(jobData.auditScore != null || jobData.avgPosition != null) && (
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {jobData.auditScore != null && (
-                      <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                         <p className="text-xl font-bold">{jobData.auditScore}</p>
-                        <p className="text-xs text-muted-foreground">Audit Score</p>
+                        <p className="text-xs text-ink-2">Audit Score</p>
                       </div>
                     )}
                     {jobData.avgPosition != null && (
-                      <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                         <p className="text-xl font-bold">{jobData.avgPosition}</p>
-                        <p className="text-xs text-muted-foreground">Avg Position</p>
+                        <p className="text-xs text-ink-2">Avg Position</p>
                       </div>
                     )}
                     {jobData.issuesFound != null && (
-                      <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                         <p className="text-xl font-bold">{jobData.issuesFound}</p>
-                        <p className="text-xs text-muted-foreground">Issues</p>
+                        <p className="text-xs text-ink-2">Issues</p>
                       </div>
                     )}
                     {jobData.creditsUsed != null && (
-                      <div className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                      <div className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                         <p className="text-xl font-bold">{jobData.creditsUsed}</p>
-                        <p className="text-xs text-muted-foreground">Credits</p>
+                        <p className="text-xs text-ink-2">Credits</p>
                       </div>
                     )}
                   </div>
@@ -179,24 +179,24 @@ export default function PipelinePage() {
                     <h3 className="mb-2 font-medium">Recommendations</h3>
                     <div className="space-y-2">
                       {jobData.recommendations.map((r: any, i: number) => (
-                        <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+                        <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
                           <Badge variant={r.priority === "critical" ? "destructive" : "outline"} className="mb-1">{r.priority}</Badge>
                           <p className="text-sm font-medium">{r.title ?? r.action}</p>
-                          {r.description && <p className="text-sm text-muted-foreground">{r.description}</p>}
+                          {r.description && <p className="text-sm text-ink-2">{r.description}</p>}
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
                 {!jobData.auditScore && !jobData.recommendations && (
-                  <pre className="max-h-[400px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+                  <pre className="max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
                     {JSON.stringify(jobData, null, 2)}
                   </pre>
                 )}
               </div>
             )}
             {jobStatus === "failed" && (
-              <p className="text-sm text-destructive">{jobData?.error ?? jobData?.failedReason ?? "Pipeline failed."}</p>
+              <p className="text-sm text-danger">{jobData?.error ?? jobData?.failedReason ?? "Pipeline failed."}</p>
             )}
           </CardContent>
         </Card>

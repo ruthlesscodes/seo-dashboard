@@ -14,17 +14,17 @@ export function MetricCard({ label, value, change, icon, className, staggerIndex
   return (
     <div
       className={cn(
-        "rounded-[6px] border border-border bg-card p-4 transition-[border-color,box-shadow] duration-150 hover:border-primary/40 hover:shadow-[0_0_0_1px_hsl(38_92%_52%_/_0.2)]",
+        "rounded-[6px] border border-meridian-100 bg-white p-4 transition-[border-color,box-shadow] duration-150 hover:border-meridian-200 hover:shadow-[0_0_0_1px_rgba(24,95,165,0.2)]",
         "animate-fade-up",
         className
       )}
       style={{ animationDelay: `${staggerIndex * 60}ms`, animationFillMode: "backwards" } as React.CSSProperties}
     >
       <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{label}</p>
-        {icon && <div className="text-muted-foreground opacity-70">{icon}</div>}
+        <p className="text-xs font-semibold uppercase tracking-widest text-ink-2">{label}</p>
+        {icon && <div className="text-ink-2 opacity-70">{icon}</div>}
       </div>
-      <p className="mt-2 font-mono text-2xl font-semibold tabular-nums tracking-tight text-foreground animate-number-tick">
+      <p className="mt-2 font-mono text-2xl font-semibold tabular-nums tracking-tight text-ink animate-number-tick">
         {value}
       </p>
       {change && (
@@ -33,7 +33,7 @@ export function MetricCard({ label, value, change, icon, className, staggerIndex
             "mt-1 text-xs font-mono",
             change.direction === "up" && "text-rank-up",
             change.direction === "down" && "text-rank-down",
-            change.direction === "neutral" && "text-muted-foreground"
+            change.direction === "neutral" && "text-ink-2"
           )}
         >
           {change.direction === "up" && "↑ "}

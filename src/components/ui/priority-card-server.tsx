@@ -27,12 +27,12 @@ export async function PriorityCardServer({
 
     if (priorities.length === 0) {
       return (
-        <div className="rounded-2xl p-8 text-center" style={{ background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.15)" }}>
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full" style={{ background: "rgba(16,185,129,0.1)" }}>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-meridian-100 bg-success-bg py-16 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-success-bg">
             <span className="text-2xl">🎉</span>
           </div>
-          <p className="font-semibold" style={{ color: "#fff" }}>No critical issues found!</p>
-          <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Your site looks healthy. We will keep monitoring and alert you if anything changes.</p>
+          <p className="text-sm font-bold text-ink">No critical issues found!</p>
+          <p className="mt-1 text-xs text-ink-3">Your site looks healthy. We&apos;ll keep monitoring and alert you if anything changes.</p>
         </div>
       );
     }
@@ -47,15 +47,15 @@ export async function PriorityCardServer({
   } catch (err: any) {
     if (err?.status === 402 || err?.code === "INSUFFICIENT_CREDITS") {
       return (
-        <div className="rounded-2xl p-6 text-center" style={{ background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.15)" }}>
-          <p className="font-medium" style={{ color: "#fff" }}>Out of credits</p>
-          <p className="mt-1 text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Upgrade your plan to run more audits. <a href="/dashboard/billing" style={{ color: "#10b981" }}>View plans</a></p>
+        <div className="rounded-xl border border-danger bg-danger-bg p-6 text-center">
+          <p className="font-bold text-ink">Out of credits</p>
+          <p className="mt-1 text-sm text-ink-3">Upgrade your plan to run more audits. <a href="/dashboard/billing" className="font-medium text-meridian-600 hover:underline">View plans</a></p>
         </div>
       );
     }
     return (
-      <div className="rounded-2xl p-6 text-center" style={{ background: "rgba(255,255,255,0.03)", border: "1px dashed rgba(255,255,255,0.1)" }}>
-        <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Could not load priorities. <a href="/dashboard/audit" style={{ color: "#10b981" }}>Run an audit</a></p>
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-meridian-100 bg-canvas py-12 text-center">
+        <p className="text-sm text-ink-3">Could not load priorities. <a href="/dashboard/audit" className="font-medium text-meridian-600 hover:underline">Run an audit</a></p>
       </div>
     );
   }

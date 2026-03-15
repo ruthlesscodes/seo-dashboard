@@ -2,14 +2,13 @@ import type { Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
 
 export default {
-  darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -41,15 +40,34 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        canvas: "#F4F8FE",
+        ink: {
+          DEFAULT: "#0E1E35",
+          2: "#3A506E",
+          3: "#7A94B0",
+          4: "#ADBDD1",
+        },
+        meridian: {
+          50: "#E6F1FB",
+          100: "#B5D4F4",
+          200: "#85B7EB",
+          400: "#378ADD",
+          600: "#185FA5",
+          800: "#0C447C",
+          900: "#042C53",
+        },
+        success: { DEFAULT: "#1D9E75", bg: "#E1F5EE" },
+        warning: { DEFAULT: "#BA7517", bg: "#FAEEDA" },
+        danger: { DEFAULT: "#A32D2D", bg: "#FCEBEB" },
         rank: {
-          up: "hsl(142 71% 45%)",
-          down: "hsl(0 72% 55%)",
-          stable: "hsl(var(--muted-foreground))",
+          up: "#1D9E75",
+          down: "#A32D2D",
+          stable: "#7A94B0",
         },
         severity: {
-          critical: "hsl(0 72% 55%)",
-          warning: "hsl(38 92% 52%)",
-          info: "hsl(217 91% 60%)",
+          critical: "#A32D2D",
+          warning: "#BA7517",
+          info: "#378ADD",
         },
         geo: {
           score: "hsl(262 83% 58%)",
@@ -59,19 +77,15 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "var(--radius)",
-        sm: "4px",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
-      /* 13 Animation Rules — Amber Frost Industrial motion system */
       keyframes: {
         "fade-up": {
           from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
-        "fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
         "scale-in": {
           from: { opacity: "0", transform: "scale(0.96)" },
           to: { opacity: "1", transform: "scale(1)" },
@@ -80,36 +94,16 @@ export default {
           from: { opacity: "0", transform: "translateX(-8px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
-        "slide-in-right": {
-          from: { opacity: "0", transform: "translateX(12px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
-        },
-        "number-tick": {
-          "0%": { opacity: "0", transform: "translateY(-4px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "progress-fill": {
-          from: { width: "0%" },
-          to: { width: "var(--progress-width, 0%)" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "1", boxShadow: "0 0 8px hsla(38, 92%, 52%, 0.4)" },
-          "50%": { opacity: "0.85", boxShadow: "0 0 16px hsla(38, 92%, 52%, 0.2)" },
-        },
         "pulse-dot": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.3" },
         },
       },
       animation: {
-        "fade-up": "fade-up 0.4s ease-out forwards",
-        "fade-in": "fade-in 0.3s ease-out",
-        "scale-in": "scale-in 0.2s ease-out",
-        "slide-in-left": "slide-in-left 0.3s ease-out",
-        "slide-in-right": "slide-in-right 0.3s ease-out",
-        "number-tick": "number-tick 0.3s ease-out",
-        "progress-fill": "progress-fill 0.8s ease-out forwards",
-        "pulse-glow": "pulse-glow 2s infinite",
+        "fade-up": "fade-up 0.4s ease-out both",
+        "fade-in": "fade-in 0.3s ease-out both",
+        "scale-in": "scale-in 0.2s ease-out both",
+        "slide-in-left": "slide-in-left 0.3s ease-out both",
         "pulse-dot": "pulse-dot 2s infinite",
       },
     },

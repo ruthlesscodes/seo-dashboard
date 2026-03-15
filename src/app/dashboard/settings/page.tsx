@@ -55,8 +55,8 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Settings</h1>
-        <p className="text-muted-foreground">Account and integration configuration</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Settings</h1>
+        <p className="text-ink-2">Account and integration configuration</p>
       </div>
 
       <Card>
@@ -69,15 +69,15 @@ export default function SettingsPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Name</Label>
-              <Input value={session?.user?.name ?? ""} readOnly className="bg-muted/30" />
+              <Input value={session?.user?.name ?? ""} readOnly className="bg-canvas" />
             </div>
             <div className="space-y-2">
               <Label>Email</Label>
-              <Input value={session?.user?.email ?? ""} readOnly className="bg-muted/30" />
+              <Input value={session?.user?.email ?? ""} readOnly className="bg-canvas" />
             </div>
             <div className="space-y-2">
               <Label>Domain</Label>
-              <Input value={domain} readOnly className="bg-muted/30" />
+              <Input value={domain} readOnly className="bg-canvas" />
             </div>
             <div className="space-y-2">
               <Label>Plan</Label>
@@ -99,7 +99,7 @@ export default function SettingsPage() {
           <CardTitle className="flex items-center gap-2">
             <KeyRound className="h-4 w-4" /> API Key
           </CardTitle>
-          <p className="text-sm text-muted-foreground">Use this key to authenticate direct API calls</p>
+          <p className="text-sm text-ink-2">Use this key to authenticate direct API calls</p>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex gap-2">
@@ -108,7 +108,7 @@ export default function SettingsPage() {
                 type={apiKeyVisible ? "text" : "password"}
                 value={apiKey}
                 readOnly
-                className="bg-muted/30 font-mono pr-10"
+                className="bg-canvas font-mono pr-10"
               />
             </div>
             <Button variant="outline" size="sm" onClick={() => setApiKeyVisible((v) => !v)}>
@@ -125,7 +125,7 @@ export default function SettingsPage() {
             </Button>
           </div>
           {orgId && (
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-ink-2">
               Org ID: <span className="font-mono">{orgId}</span>
             </p>
           )}
@@ -139,10 +139,10 @@ export default function SettingsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between rounded-[6px] border border-border bg-muted/20 p-4">
+          <div className="flex items-center justify-between rounded-xl border border-meridian-100 bg-canvas p-4">
             <div>
               <p className="font-medium">Google Search Console</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-2">
                 Import real keyword impressions, clicks, and ranking drops
               </p>
               {plan === "FREE" && (
@@ -176,7 +176,7 @@ export default function SettingsPage() {
           <CardTitle className="flex items-center gap-2">
             <Webhook className="h-4 w-4" /> Webhooks
           </CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-ink-2">
             Receive events when audits complete, rankings change, or pipeline jobs finish
           </p>
         </CardHeader>
@@ -205,10 +205,10 @@ export default function SettingsPage() {
           <CardTitle>API Documentation</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="mb-3 text-sm text-muted-foreground">
-            Integrate the SEO API directly into your own apps. Authenticate using your API key above in the <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">x-api-key</code> header.
+          <p className="mb-3 text-sm text-ink-2">
+            Integrate the SEO API directly into your own apps. Authenticate using your API key above in the <code className="rounded bg-meridian-100 px-1 py-0.5 font-mono text-xs">x-api-key</code> header.
           </p>
-          <div className="overflow-x-auto rounded-[6px] bg-muted/50 p-4 font-mono text-xs">
+          <div className="overflow-x-auto rounded-lg bg-meridian-50 p-4 font-mono text-xs">
             {`curl -X POST ${apiBaseUrl}/api/audit/technical \\
   -H "x-api-key: ${apiKeyVisible ? apiKey : "YOUR_API_KEY"}" \\
   -H "Content-Type: application/json" \\

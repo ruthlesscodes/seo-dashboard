@@ -110,12 +110,12 @@ export default function CompetitorsPage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Competitors</h1>
-        <p className="text-muted-foreground">Crawl and benchmark competitor sites</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Competitors</h1>
+        <p className="text-ink-2">Crawl and benchmark competitor sites</p>
       </div>
 
       <Tabs defaultValue="crawl" className="space-y-4">
-        <TabsList className="bg-muted">
+        <TabsList className="bg-meridian-50">
           <TabsTrigger value="crawl" className="gap-2">
             <Globe className="h-4 w-4" /> Crawl Competitor
           </TabsTrigger>
@@ -137,7 +137,7 @@ export default function CompetitorsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Crawl Competitor Domain</CardTitle>
-              <p className="text-sm text-muted-foreground">Extract pages, content structure, and SEO signals from a competitor</p>
+              <p className="text-sm text-ink-2">Extract pages, content structure, and SEO signals from a competitor</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleCrawl} className="flex flex-wrap gap-4">
@@ -165,9 +165,9 @@ export default function CompetitorsPage() {
                       { label: "Internal Links", value: crawlResult.internalLinkCount ?? "—" },
                       { label: "Unique Keywords", value: crawlResult.uniqueKeywords ?? "—" },
                     ].map(({ label, value }) => (
-                      <div key={label} className="rounded-[6px] border border-border bg-muted/30 p-3 text-center">
+                      <div key={label} className="rounded-lg border border-meridian-100 bg-canvas p-3 text-center">
                         <p className="text-xl font-bold">{value}</p>
-                        <p className="text-xs text-muted-foreground">{label}</p>
+                        <p className="text-xs text-ink-2">{label}</p>
                       </div>
                     ))}
                   </div>
@@ -175,10 +175,10 @@ export default function CompetitorsPage() {
                   {crawlResult.pages?.length > 0 && (
                     <div>
                       <h3 className="mb-2 font-medium">Top Pages ({crawlResult.pages.length})</h3>
-                      <div className="overflow-x-auto rounded-[6px] border border-border">
+                      <div className="overflow-x-auto rounded-lg border border-meridian-100">
                         <table className="w-full text-sm">
                           <thead>
-                            <tr className="border-b border-border bg-muted/50">
+                            <tr className="border-b border-meridian-100 bg-meridian-50">
                               <th className="px-4 py-3 text-left font-medium">URL</th>
                               <th className="px-4 py-3 text-left font-medium">Title</th>
                               <th className="px-4 py-3 text-left font-medium">Words</th>
@@ -186,8 +186,8 @@ export default function CompetitorsPage() {
                           </thead>
                           <tbody>
                             {crawlResult.pages.slice(0, 20).map((p: any, i: number) => (
-                              <tr key={i} className="border-b border-border last:border-0">
-                                <td className="max-w-[200px] truncate px-4 py-2 font-mono text-xs text-muted-foreground">{p.url}</td>
+                              <tr key={i} className="border-b border-meridian-100 last:border-0">
+                                <td className="max-w-[200px] truncate px-4 py-2 font-mono text-xs text-ink-2">{p.url}</td>
                                 <td className="max-w-[200px] truncate px-4 py-2">{p.title ?? "—"}</td>
                                 <td className="px-4 py-2">{p.wordCount ?? "—"}</td>
                               </tr>
@@ -199,7 +199,7 @@ export default function CompetitorsPage() {
                   )}
 
                   {!crawlResult.pages && (
-                    <pre className="max-h-[300px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+                    <pre className="max-h-[300px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
                       {JSON.stringify(crawlResult, null, 2)}
                     </pre>
                   )}
@@ -213,7 +213,7 @@ export default function CompetitorsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Head-to-Head Comparison</CardTitle>
-              <p className="text-sm text-muted-foreground">Compare your site vs a competitor for a specific keyword</p>
+              <p className="text-sm text-ink-2">Compare your site vs a competitor for a specific keyword</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleCompare} className="flex flex-wrap gap-4">
@@ -240,12 +240,12 @@ export default function CompetitorsPage() {
                 <div className="mt-4 space-y-4">
                   {(compareResult.yourScore != null || compareResult.competitorScore != null) && (
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="rounded-[6px] border border-blue-500/30 bg-blue-500/5 p-4 text-center">
-                        <p className="mb-1 text-xs text-muted-foreground">Your site</p>
-                        <p className="text-3xl font-bold text-blue-500">{compareResult.yourScore ?? "—"}</p>
+                      <div className="rounded-lg border border-blue-500/30 bg-blue-500/5 p-4 text-center">
+                        <p className="mb-1 text-xs text-ink-2">Your site</p>
+                        <p className="text-3xl font-bold text-meridian-600">{compareResult.yourScore ?? "—"}</p>
                       </div>
-                      <div className="rounded-[6px] border border-red-500/30 bg-red-500/5 p-4 text-center">
-                        <p className="mb-1 text-xs text-muted-foreground">Competitor</p>
+                      <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-4 text-center">
+                        <p className="mb-1 text-xs text-ink-2">Competitor</p>
                         <p className="text-3xl font-bold text-red-500">{compareResult.competitorScore ?? "—"}</p>
                       </div>
                     </div>
@@ -256,12 +256,12 @@ export default function CompetitorsPage() {
                       <h3 className="mb-2 font-medium">Content Gaps</h3>
                       <div className="space-y-2">
                         {compareResult.gaps.map((gap: any, i: number) => (
-                          <div key={i} className="rounded-[6px] border border-border bg-muted/30 p-3">
+                          <div key={i} className="rounded-lg border border-meridian-100 bg-canvas p-3">
                             <div className="flex items-center gap-2">
                               <Badge variant="outline">{gap.type ?? "gap"}</Badge>
                               <span className="text-sm font-medium">{gap.topic ?? gap.keyword ?? gap.title}</span>
                             </div>
-                            {gap.description && <p className="mt-1 text-sm text-muted-foreground">{gap.description}</p>}
+                            {gap.description && <p className="mt-1 text-sm text-ink-2">{gap.description}</p>}
                           </div>
                         ))}
                       </div>
@@ -271,7 +271,7 @@ export default function CompetitorsPage() {
                   {compareResult.recommendations?.length > 0 && (
                     <div>
                       <h3 className="mb-2 font-medium">Recommendations</h3>
-                      <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                      <ul className="list-disc space-y-1 pl-5 text-sm text-ink-2">
                         {compareResult.recommendations.map((r: any, i: number) => (
                           <li key={i}>{typeof r === "string" ? r : r.description ?? r.text}</li>
                         ))}
@@ -280,7 +280,7 @@ export default function CompetitorsPage() {
                   )}
 
                   {!compareResult.gaps && !compareResult.recommendations && (
-                    <pre className="max-h-[300px] overflow-auto rounded-[6px] border border-border bg-muted/30 p-4 text-xs">
+                    <pre className="max-h-[300px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs">
                       {JSON.stringify(compareResult, null, 2)}
                     </pre>
                   )}
@@ -294,7 +294,7 @@ export default function CompetitorsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Scrape Page</CardTitle>
-              <p className="text-sm text-muted-foreground">Extract content from a competitor URL</p>
+              <p className="text-sm text-ink-2">Extract content from a competitor URL</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleScrape} className="flex gap-4">
@@ -307,7 +307,7 @@ export default function CompetitorsPage() {
                 </div>
               </form>
               {scrapeResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof scrapeResult === "string" ? scrapeResult : JSON.stringify(scrapeResult, null, 2)}
                 </pre>
               )}
@@ -319,7 +319,7 @@ export default function CompetitorsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Scrape (JS/Interactive)</CardTitle>
-              <p className="text-sm text-muted-foreground">Scrape with JavaScript rendering for SPAs</p>
+              <p className="text-sm text-ink-2">Scrape with JavaScript rendering for SPAs</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleScrapeInteractive} className="flex gap-4">
@@ -332,7 +332,7 @@ export default function CompetitorsPage() {
                 </div>
               </form>
               {scrapeInteractiveResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof scrapeInteractiveResult === "string" ? scrapeInteractiveResult : JSON.stringify(scrapeInteractiveResult, null, 2)}
                 </pre>
               )}
@@ -344,7 +344,7 @@ export default function CompetitorsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Competitor Brand Analysis</CardTitle>
-              <p className="text-sm text-muted-foreground">Analyze competitor brand presence</p>
+              <p className="text-sm text-ink-2">Analyze competitor brand presence</p>
             </CardHeader>
             <CardContent className="space-y-4">
               <form onSubmit={handleBrand} className="flex gap-4">
@@ -357,7 +357,7 @@ export default function CompetitorsPage() {
                 </div>
               </form>
               {brandResult && (
-                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-border bg-muted/30 p-4 text-xs whitespace-pre-wrap">
+                <pre className="mt-4 max-h-[400px] overflow-auto rounded-lg border border-meridian-100 bg-canvas p-4 text-xs whitespace-pre-wrap">
                   {typeof brandResult === "string" ? brandResult : JSON.stringify(brandResult, null, 2)}
                 </pre>
               )}

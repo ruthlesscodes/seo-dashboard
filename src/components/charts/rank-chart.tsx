@@ -68,7 +68,7 @@ export function RankChart({ domain }: { domain?: string }) {
           />
         </LineChart>
       </ResponsiveContainer>
-      <p className="mt-2 text-center text-xs text-muted-foreground">
+      <p className="mt-2 text-center text-xs text-ink-2">
         Lower position is better. Add keywords and run checks to see real data.
       </p>
     </div>

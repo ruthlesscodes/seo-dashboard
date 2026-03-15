@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const PLAN_ICONS: Record<string, any> = { FREE: Star, STARTER: Zap, GROWTH: Rocket };
 const PLAN_COLORS: Record<string, string> = {
-  FREE: "border-border",
+  FREE: "border-meridian-100",
   STARTER: "border-blue-500",
   GROWTH: "border-primary/50",
 };
@@ -90,23 +90,23 @@ export default function BillingPage() {
   return (
     <div className="space-y-6 animate-fade-up">
       <div>
-        <h1 className="font-display text-2xl font-bold tracking-tight">Billing</h1>
-        <p className="text-muted-foreground">Manage your plan and credits</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink">Billing</h1>
+        <p className="text-ink-2">Manage your plan and credits</p>
       </div>
 
       <Card>
         <CardHeader><CardTitle>Current Usage</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Plan</span>
+            <span className="text-sm text-ink-2">Plan</span>
             <Badge>{currentPlan}</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Credits used this month</span>
+            <span className="text-sm text-ink-2">Credits used this month</span>
             <span className="font-mono text-sm">{creditsUsed} / {creditsLimit || "—"}</span>
           </div>
           {creditsLimit > 0 && (
-            <div className="h-2 w-full overflow-hidden rounded-[6px] bg-muted">
+            <div className="h-2 w-full overflow-hidden rounded-lg bg-meridian-100">
               <div
                 className="h-full bg-primary transition-[width] duration-700"
                 style={{ width: `${Math.min(100, (creditsUsed / creditsLimit) * 100)}%` }}
@@ -133,7 +133,7 @@ export default function BillingPage() {
           return (
             <Card
               key={plan.name}
-              className={cn("relative flex flex-col", PLAN_COLORS[plan.name] ?? "border-border", isCurrent && "ring-2 ring-primary")}
+              className={cn("relative flex flex-col", PLAN_COLORS[plan.name] ?? "border-meridian-100", isCurrent && "ring-2 ring-meridian-600")}
             >
               {isCurrent && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -147,7 +147,7 @@ export default function BillingPage() {
                 </div>
                 <p className="text-3xl font-bold">
                   {plan.price === 0 ? "Free" : `$${plan.price}`}
-                  {plan.price > 0 && <span className="text-sm font-normal text-muted-foreground">/mo</span>}
+                  {plan.price > 0 && <span className="text-sm font-normal text-ink-2">/mo</span>}
                 </p>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col gap-4">

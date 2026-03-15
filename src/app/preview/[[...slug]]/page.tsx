@@ -28,9 +28,9 @@ export default async function PreviewSlugPage({
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-display text-2xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-sm text-muted-foreground">Overview of your SEO performance (preview)</p>
+            <p className="text-sm text-ink-2">Overview of your SEO performance (preview)</p>
           </div>
-          <Link href="/auth/login" className="text-xs text-muted-foreground underline hover:text-foreground">
+          <Link href="/auth/login" className="text-xs text-ink-2 underline hover:text-ink">
             Sign in to use
           </Link>
         </div>
@@ -44,7 +44,7 @@ export default async function PreviewSlugPage({
           <Card>
             <CardHeader>
               <CardTitle>Rank Changes</CardTitle>
-              <p className="text-sm text-muted-foreground">Position trends for top keywords (last 30 days)</p>
+              <p className="text-sm text-ink-2">Position trends for top keywords (last 30 days)</p>
             </CardHeader>
             <CardContent>
               <RankChart domain="example.com" />
@@ -53,10 +53,10 @@ export default async function PreviewSlugPage({
           <Card>
             <CardHeader>
               <CardTitle>Recent Activity</CardTitle>
-              <p className="text-sm text-muted-foreground">Latest updates from Monitor, Audit, Content</p>
+              <p className="text-sm text-ink-2">Latest updates from Monitor, Audit, Content</p>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">No recent activity yet. Run your first check to see updates here.</p>
+              <p className="text-sm text-ink-2">No recent activity yet. Run your first check to see updates here.</p>
             </CardContent>
           </Card>
         </div>
@@ -70,7 +70,7 @@ export default async function PreviewSlugPage({
                   key={action.href}
                   href={action.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-[6px] border border-border bg-card p-4",
+                    "flex items-center gap-3 rounded-[6px] border border-meridian-100 bg-white p-4",
                     "transition-[border-color,box-shadow] duration-150 hover:border-primary/40 hover:shadow-[0_0_0_1px_hsl(38_92%_52%_/_0.2)] active:scale-[0.98]"
                   )}
                 >
@@ -91,9 +91,9 @@ export default async function PreviewSlugPage({
     <div className="space-y-6 animate-fade-up">
       <div>
         <h1 className="font-display text-2xl font-bold tracking-tight">{name}</h1>
-        <p className="text-sm text-muted-foreground">Preview — sign in to use this page</p>
+        <p className="text-sm text-ink-2">Preview — sign in to use this page</p>
       </div>
-      <div className="rounded-[6px] border border-border bg-card p-8 text-center text-muted-foreground">
+      <div className="rounded-[6px] border border-meridian-100 bg-white p-8 text-center text-ink-2">
         <p>This is a preview of the page layout.</p>
         <Link href="/preview" className="mt-4 inline-block text-sm text-primary hover:underline">
           ← Back to Dashboard
